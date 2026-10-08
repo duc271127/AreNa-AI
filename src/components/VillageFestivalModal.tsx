@@ -513,7 +513,7 @@ const GanhLuaGame: React.FC = () => {
         s.tiltVelocity += s.balance * 0.005 + s.windPush * 0.05; 
         
         // [ĐIỂM CHỈNH 3]: Giảm hệ số quán tính (0.94 -> 0.85) để đòn gánh bớt trơn trượt, dễ hãm lại hơn
-        s.tiltVelocity *= 0.85; 
+        s.tiltVelocity *= 0.7; 
         s.balance += s.tiltVelocity;
 
         // [ĐIỂM CHỈNH 4]: Giảm tốc độ đi bộ lại một chút (0.85 -> 0.6) để có thời gian phản xạ

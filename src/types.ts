@@ -79,11 +79,27 @@ export interface Accessory {
   icon: string;
 }
 
+export type SceneId = 'cung-dinh' | 'dam-sen' | 'hoi-an';
+
+export interface Scene {
+  id: SceneId;
+  name: string;
+  shortName: string;
+  subtitle: string;
+  icon: string;
+  timeOfDay: string;
+  wardrobeObjectName: string;
+  wardrobeClosedIcon: string;
+  wardrobeOpenIcon: string;
+  description: string;
+}
+
 export interface ScoreEvaluation {
   score: number;
   status: 'perfect' | 'good' | 'warning' | 'danger';
   title: string;
   feedback: string;
+  sceneCommentary: string;
   ruleBreak: boolean;
   breakDetails?: string;
   bonuses: string[];

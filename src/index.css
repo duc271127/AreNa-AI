@@ -17,6 +17,41 @@
   font-family: 'VT323', monospace;
 }
 
+.font-content {
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+}
+
+/* Glow effects */
+.glow-gold {
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.7), 0 0 20px rgba(251, 191, 36, 0.5);
+}
+
+.glow-jade {
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.7), 0 0 20px rgba(52, 211, 153, 0.5);
+}
+
+.glow-ruby {
+  text-shadow: 0 0 10px rgba(225, 29, 72, 0.7), 0 0 20px rgba(244, 63, 94, 0.5);
+}
+
+.box-glow-gold {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(251, 191, 36, 0.2);
+}
+
+.pixel-glass-dark {
+  background: rgba(15, 10, 25, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(245, 158, 11, 0.45);
+}
+
+.pixel-glass-light {
+  background: rgba(255, 251, 245, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(180, 83, 9, 0.45);
+}
+
 /* 3D Gold Carved Royal Pixel Borders (Khung viền nổi 3D mạ vàng chạm khắc tinh xảo) */
 .pixel-gold-3d {
   box-shadow: 
