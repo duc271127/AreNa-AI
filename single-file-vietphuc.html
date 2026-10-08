@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Việt Phục Pixel Art - Bách Phục Cổ Truyền (Hoàng Triều Đại Việt 8-Bit)</title>
+  
+  <!-- Font Pixel hỗ trợ trọn vẹn dấu tiếng Việt từ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       1. HỆ MÀU CUNG ĐÌNH SÁNG, SANG TRỌNG & HIỆU ỨNG VIỀN NỔI 3D MẠ VÀNG
+       ========================================================================== */
+    :root {
+      --bg-cream: #faf5ef;
+      --bg-ivory: #fffbf5;
+      --bg-gold-light: #fef3c7;
+      
+      --gold-royal: #f59e0b;
+      --gold-deep: #b45309;
+      --gold-dark: #78350f;
+      --red-royal: #b91c1c;
+      --red-deep: #831843;
+      --emerald: #047857;
+      --jade-bright: #10b981;
+      --blue-court: #1e3a5f;
+      
+      --text-main: #1e1305;
+      --text-muted: #78350f;
+      --border-dark: #3b2803;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      font-family: 'Pixelify Sans', cursive, monospace, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Viền 3D mạ vàng & chạm khắc tinh xảo */
+    .pixel-carved-gold {
+      border: 3px solid #78350f;
+      box-shadow: 
+        inset 2px 2px 0px #fef08a,
+        inset -2px -2px 0px #b45309,
+        0 4px 12px rgba(120, 53, 15, 0.25);
+    }
+
+    .pixel-carved-blue {
+      border: 3px solid #1e3a5f;
+      box-shadow: 
+        inset 2px 2px 0px #bae6fd,
+        inset -2px -2px 0px #0369a1,
+        0 4px 12px rgba(30, 58, 95, 0.25);
+    }
+
+    .pixel-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Pixelify Sans', cursive, monospace;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      border: 2px solid #3b2803;
+      box-shadow: inset 1px 1px 0px #fff, 2px 2px 0px #000;
+      transition: transform 0.05s ease;
+    }
+    .pixel-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px #000;
+    }
+
+    /* Hiệu ứng chớp đỏ cảnh báo lệch chuẩn */
+    @keyframes pixel-red-blink {
+      0%, 100% {
+        background-color: #fef2f2;
+        border-color: #ef4444;
+        box-shadow: 0 0 16px rgba(239, 68, 68, 0.6);
+      }
+      50% {
+        background-color: #fee2e2;
+        border-color: #b91c1c;
+        box-shadow: 0 0 24px rgba(185, 28, 28, 0.9);
+      }
+    }
+    .animate-red-blink {
+      animation: pixel-red-blink 1s steps(2) infinite;
+    }
+
+    /* Hiệu ứng phát sáng hoàng kim 100 điểm */
+    @keyframes gold-glow-pulse {
+      0%, 100% {
+        box-shadow: 
+          inset 2px 2px 0px #fef08a,
+          inset -2px -2px 0px #b45309,
+          0 0 15px rgba(245, 158, 11, 0.6);
+      }
+      50% {
+        box-shadow: 
+          inset 2px 2px 0px #ffffff,
+          inset -2px -2px 0px #f59e0b,
+          0 0 28px rgba(245, 158, 11, 1);
+      }
+    }
+    .animate-gold-glow {
+      animation: gold-glow-pulse 1.4s ease-in-out infinite;
+    }
+
+    /* Nền chánh điện Nam (Rồng Mây Vàng Đồng & Xanh Lam) */
+    .bg-court-male {
+      background: radial-gradient(circle at 50% 25%, #dbeafe 0%, #bfdbfe 45%, #93c5fd 90%);
+      background-image: 
+        radial-gradient(circle at 50% 20%, #eff6ff 0%, #bfdbfe 60%),
+        repeating-linear-gradient(45deg, rgba(30, 58, 95, 0.05) 0px, rgba(30, 58, 95, 0.05) 8px, transparent 8px, transparent 16px);
+    }
+
+    /* Nền hậu cung Nữ (Hoa Sen Sóng Nước Hồng Ngọc & Xanh Lục Bảo) */
+    .bg-court-female {
+      background: radial-gradient(circle at 50% 25%, #fce7f3 0%, #fbcfe8 45%, #f9a8d4 90%);
+      background-image: 
+        radial-gradient(circle at 50% 20%, #fff1f2 0%, #fbcfe8 60%),
+        repeating-linear-gradient(-45deg, rgba(131, 24, 67, 0.04) 0px, rgba(131, 24, 67, 0.04) 8px, transparent 8px, transparent 16px);
+    }
+
+    /* Scanlines cổ điển */
+    .scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.12) 50%,
+        rgba(0, 0, 0, 0.12)
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+    }
+
+    /* Đèn lồng rung rinh */
+    @keyframes lantern-flicker {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-3px) rotate(1deg); }
+    }
+    .animate-lantern {
+      animation: lantern-flicker 2s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Scanlines CRT -->
+  <div id="scanlines" class="scanlines" style="position: fixed; inset: 0; z-index: 40;"></div>
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header style="background: linear-gradient(to right, #78350f, #991b1b, #78350f); color: white; border-bottom: 4px solid #3b2803; padding: 10px 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); z-index: 30;">
+    <div style="max-w: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+      
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div id="header-icon" style="width: 40px; height: 40px; background: #fef08a; border: 3px solid #3b2803; box-shadow: 2px 2px 0 #000; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+          🪷
+        </div>
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <h1 style="font-size: 18px; font-weight: 700; color: #fef08a; letter-spacing: 1px; text-transform: uppercase; text-shadow: 2px 2px 0 #000;">
+              VIỆT PHỤC PIXEL ART
+            </h1>
+            <span style="font-size: 10px; background: #f59e0b; color: #1e1305; padding: 2px 6px; border: 1px solid white; font-weight: 700;">
+              HOÀNG TRIỀU 8-BIT
+            </span>
+          </div>
+          <p style="font-size: 11px; color: #fed7aa;">
+            Bách Phục Cổ Truyền • Phối Đồ Chuẩn Mực & Lễ Hội Dân Gian
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-left: auto;">
+        <!-- Nút Lễ Hội Làng Mini-games -->
+        <button id="btn-open-festival" class="pixel-btn" style="padding: 6px 12px; font-size: 12px; background: #b91c1c; color: white; border-color: #fef08a; animation: pulse 2s infinite;">
+          🏮 THAM GIA LỄ HỘI LÀNG
+        </button>
+
+        <!-- BGM Toggle -->
+        <button id="btn-bgm" class="pixel-btn" style="padding: 6px 10px; font-size: 12px; background: #451a03; color: #fed7aa; border-color: #d97706;">
+          🔇 BGM: TẮT
+        </button>
+
+        <!-- SFX Toggle -->
+        <button id="btn-sfx" class="pixel-btn" style="padding: 6px 10px; font-size: 12px; background: #b45309; color: white; border-color: #fef08a;">
+          🔊 SFX
+        </button>
+
+        <!-- CRT Toggle -->
+        <button id="btn-crt" class="pixel-btn" style="padding: 6px 10px; font-size: 12px; background: #b45309; color: white; border-color: #fef08a;">
+          📺 CRT
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN LAYOUT ================= -->
+  <main style="max-width: 1280px; width: 100%; margin: 0 auto; padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 16px; z-index: 10;">
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+      
+      <!-- ================= CỘT TRUNG TÂM (MODEL -> BẢNG ĐIỂM -> BẢNG THÔNG SỐ) ================= -->
+      <section style="display: flex; flex-direction: column; gap: 14px; flex: 1.3;">
+        
+        <!-- 1. KHU VỰC MODEL (MAIN STAGE) -->
+        <div id="model-stage-box" class="pixel-carved-gold" style="background: #faf6ed; overflow: hidden; display: flex; flex-direction: column;">
+          
+          <!-- Thanh tiêu đề sân khấu -->
+          <div id="stage-header" style="background: #831843; color: white; border-bottom: 2px solid #f59e0b; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 10px; height: 10px; background: #fef08a; border: 1px solid black; display: inline-block;"></span>
+              <span id="stage-title" style="font-weight: 700; text-transform: uppercase; color: #fef08a;">
+                HẬU CUNG ĐẠI TRIỀU (NỮ TỘC)
+              </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 11px;">
+              <span id="stage-costume-name" style="background: rgba(0,0,0,0.3); padding: 2px 8px; border: 1px solid rgba(255,255,255,0.4);">
+                Áo Tấc Nữ
+              </span>
+              <span id="stage-variant-name" style="color: #fef08a; font-family: monospace;">[Đỏ Son]</span>
+            </div>
+          </div>
+
+          <!-- Sân khấu Model -->
+          <div id="character-viewport" class="bg-court-female" style="position: relative; min-height: 380px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            
+            <!-- Đèn lồng Pixel -->
+            <div class="animate-lantern" style="position: absolute; top: 12px; left: 24px; z-index: 10;">
+              <svg width="28" height="46" viewBox="0 0 16 28" style="shape-rendering: crispEdges;">
+                <line x1="8" y1="0" x2="8" y2="6" stroke="#f59e0b" stroke-width="1" />
+                <rect x="3" y="6" width="10" height="14" fill="#b91c1c" />
+                <rect x="5" y="8" width="6" height="10" fill="#fef08a" />
+                <rect x="7" y="20" width="2" height="7" fill="#b91c1c" />
+              </svg>
+            </div>
+            <div class="animate-lantern" style="position: absolute; top: 12px; right: 24px; z-index: 10; animation-delay: 0.8s;">
+              <svg width="28" height="46" viewBox="0 0 16 28" style="shape-rendering: crispEdges;">
+                <line x1="8" y1="0" x2="8" y2="6" stroke="#f59e0b" stroke-width="1" />
+                <rect x="3" y="6" width="10" height="14" fill="#b91c1c" />
+                <rect x="5" y="8" width="6" height="10" fill="#fef08a" />
+                <rect x="7" y="20" width="2" height="7" fill="#b91c1c" />
+              </svg>
+            </div>
+
+            <!-- Model Container -->
+            <div id="character-container" style="position: relative; z-index: 20; transform-origin: center center; transition: transform 0.2s ease;">
+              <!-- SVG Character Model will render here -->
+            </div>
+
+            <!-- Nhãn sàn -->
+            <div id="stage-floor-badge" style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #fef08a; background: rgba(0,0,0,0.75); padding: 3px 12px; border: 1px solid #f59e0b; pointer-events: none; font-family: monospace;">
+              🪷 NỮ QUÝ TỘC • ÁO TẤC NỮ
+            </div>
+
+          </div>
+
+          <!-- Thanh điều khiển: Giới tính, Tư thế, Zoom -->
+          <div style="background: #fef3c7; border-top: 2px solid rgba(217, 119, 6, 0.4); padding: 10px 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; font-size: 11px;">
+            
+            <!-- NÚT MÔ HÌNH (GENDER TOGGLE) -->
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-weight: 700; color: #78350f; font-family: monospace;">MÔ HÌNH:</span>
+              <div style="display: flex; border: 2px solid #3b2803; background: #faf5ef;">
+                <button id="toggle-female" class="pixel-btn" style="padding: 4px 10px; font-size: 11px; background: #831843; color: white; border: none; box-shadow: none;">
+                  👩 NỮ QUÝ TỘC
+                </button>
+                <button id="toggle-male" class="pixel-btn" style="padding: 4px 10px; font-size: 11px; background: #faf5ef; color: #1e3a5f; border: none; box-shadow: none;">
+                  👨 NAM QUAN VIÊN
+                </button>
+              </div>
+            </div>
+
+            <!-- Tư thế -->
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <span style="color: #78350f; font-family: monospace;">TƯ THẾ:</span>
+              <button id="pose-idle" class="pixel-btn" style="padding: 3px 8px; font-size: 11px; background: #b91c1c; color: white; border-color: #fef08a;">Đứng</button>
+              <button id="pose-salute" class="pixel-btn" style="padding: 3px 8px; font-size: 11px; background: #faf5ef; color: #78350f; border-color: #d97706;">Hành lễ</button>
+              <button id="pose-fan" class="pixel-btn" style="padding: 3px 8px; font-size: 11px; background: #faf5ef; color: #78350f; border-color: #d97706;">Quạt</button>
+            </div>
+
+            <!-- Kính lúp Zoom -->
+            <div style="display: flex; align-items: center; gap: 4px; margin-left: auto;">
+              <span style="color: #78350f; font-family: monospace;">ZOOM:</span>
+              <button class="btn-zoom pixel-btn" data-zoom="1" style="padding: 2px 6px; font-size: 10px; background: #b45309; color: white;">1x</button>
+              <button class="btn-zoom pixel-btn" data-zoom="1.25" style="padding: 2px 6px; font-size: 10px; background: #faf5ef; color: #78350f;">1.25x</button>
+              <button class="btn-zoom pixel-btn" data-zoom="1.5" style="padding: 2px 6px; font-size: 10px; background: #faf5ef; color: #78350f;">1.5x</button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 2. BẢNG ĐIỂM & ĐÁNH GIÁ (NẰM NGAY DƯỚI MODEL) -->
+        <div id="score-panel" class="pixel-carved-gold" style="background: #faf6ed; padding: 14px; display: flex; flex-direction: column; gap: 10px; transition: all 0.3s ease;">
+          <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid rgba(217, 119, 6, 0.3); padding-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 18px;">⚖️</span>
+              <span id="score-title" style="font-weight: 700; text-transform: uppercase; font-size: 13px; color: #78350f;">
+                BẢNG ĐIỂM & ĐÁNH GIÁ PHỐI ĐỒ
+              </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 11px; color: #78350f; font-family: monospace;">ĐIỂM:</span>
+              <span id="score-number" style="font-size: 20px; font-weight: 900; color: #b45309; font-family: monospace;">
+                80/100
+              </span>
+            </div>
+          </div>
+
+          <!-- Thanh thước đo điểm số RPG -->
+          <div>
+            <div style="width: 100%; height: 16px; background: #e5e7eb; border: 2px solid #3b2803; box-shadow: inset 1px 1px 0 #000; overflow: hidden; position: relative;">
+              <div id="score-bar" style="height: 100%; width: 80%; background: #f59e0b; transition: width 0.4s ease, background-color 0.4s ease;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 9px; color: #78350f; font-family: monospace; margin-top: 2px;">
+              <span>0 (Lệch chuẩn)</span>
+              <span>50 (Trung bình)</span>
+              <span>75 (Chuẩn mực)</span>
+              <span>100 (Tuyệt phẩm)</span>
+            </div>
+          </div>
+
+          <!-- Khung Typewriter nhận xét -->
+          <div style="background: #fff; border: 2px solid #d97706; padding: 10px; font-size: 11px; line-height: 1.5; min-height: 54px; position: relative;">
+            <p id="score-feedback-text" style="color: #1e1305; font-family: monospace;"></p>
+          </div>
+        </div>
+
+        <!-- 3. BẢNG THÔNG SỐ & MIÊU TẢ CHI TIẾT (NGAY DƯỚI BẢNG ĐIỂM) -->
+        <div id="details-box" class="pixel-carved-gold" style="background: #fffbf5; padding: 14px; display: flex; flex-direction: column; gap: 12px;">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(217, 119, 6, 0.3); padding-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="background: #fef3c7; border: 2px solid #d97706; padding: 2px 6px; font-size: 13px;">📜</span>
+              <div>
+                <h3 id="detail-name" style="font-size: 14px; font-weight: 700; color: #78350f;">
+                  Áo Tấc Nữ
+                </h3>
+                <span id="detail-era" style="font-size: 10px; color: #92400e; font-family: monospace;">
+                  Triều Nguyễn (Thế kỷ 19)
+                </span>
+              </div>
+            </div>
+
+            <div id="detail-tags" style="display: flex; gap: 4px;">
+              <!-- Tags render dynamically -->
+            </div>
+          </div>
+
+          <!-- Lời thoại Typewriter miêu tả -->
+          <div style="background: #faf6ed; border: 2px solid #3b2803; padding: 12px; font-size: 12px; line-height: 1.6;">
+            <div style="font-size: 10px; color: #b45309; font-weight: 700; margin-bottom: 4px; font-family: monospace;">
+              [ĐẶC ĐIỂM & ĐIỂN TÍCH LỊCH SỬ]
+            </div>
+            <p id="detail-description" style="color: #1e1305; font-family: monospace; min-height: 48px;"></p>
+          </div>
+
+          <!-- Biến thể màu sắc -->
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: #78350f; margin-bottom: 6px; font-family: monospace;">
+              HỆ MÀU SẮC TRUYỀN THỐNG:
+            </div>
+            <div id="color-variants-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <!-- Variants render dynamically -->
+            </div>
+          </div>
+
+          <!-- Thống kê ngũ hành / đặc tính -->
+          <div id="stats-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11px; font-family: monospace;">
+            <!-- Stats render dynamically -->
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ================= CỘT BÊN PHẢI (TỦ ĐỒ & PHỤ KIỆN) ================= -->
+      <aside style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+        
+        <!-- 1. TỦ ĐỒ TRANG PHỤC (WARDROBE) -->
+        <div id="wardrobe-box" class="pixel-carved-gold" style="background: #fffbf5; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(217, 119, 6, 0.4); padding-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span id="wardrobe-icon" style="font-size: 18px;">🪷</span>
+              <span id="wardrobe-title" style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #831843;">
+                TỦ ĐỒ NỮ QUÝ TỘC
+              </span>
+            </div>
+            <span id="wardrobe-count" style="font-size: 10px; background: #fef3c7; color: #92400e; border: 1px solid #d97706; padding: 2px 6px; font-family: monospace;">
+              5 BỘ Y PHỤC
+            </span>
+          </div>
+
+          <div style="font-size: 11px; color: #451a03;">
+            Chọn bộ y phục hoàng triều để khoác lên mô hình và thẩm định:
+          </div>
+
+          <!-- Grid Trang Phục -->
+          <div id="costumes-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px;">
+            <!-- Render items dynamically -->
+          </div>
+
+        </div>
+
+        <!-- 2. LƯỚI PHỤ KIỆN (ACCESSORIES BOX) -->
+        <div id="accessories-box" class="pixel-carved-gold" style="background: #fffbf5; padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(217, 119, 6, 0.4); padding-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 18px;">💎</span>
+              <span id="accessories-title" style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #831843;">
+                PHỤ KIỆN TRUYỀN THỐNG
+              </span>
+            </div>
+            <span id="accessories-counter" style="font-size: 10px; background: #fef3c7; color: #92400e; border: 1px solid #d97706; padding: 2px 6px; font-family: monospace; font-weight: 700;">
+              0/2 ĐÃ ĐEO
+            </span>
+          </div>
+
+          <div style="font-size: 11px; color: #451a03;">
+            Chọn tối đa <strong style="color: #b91c1c;">2 món phụ kiện</strong> kết hợp cùng trang phục:
+          </div>
+
+          <!-- Grid Phụ Kiện -->
+          <div id="accessories-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px;">
+            <!-- Render accessories dynamically -->
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- ================= MODAL LỄ HỘI LÀNG (CANVAS MINI-GAMES) ================= -->
+  <div id="festival-modal" style="display: none; position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 12px;">
+    <div class="pixel-carved-gold" style="width: 100%; max-width: 860px; background: #faf6ed; display: flex; flex-direction: column; max-height: 94vh; overflow: hidden;">
+      
+      <!-- Modal Header -->
+      <div style="background: linear-gradient(to right, #831843, #991b1b, #b45309); color: white; padding: 10px 16px; border-bottom: 3px solid #3b2803; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">🏮</span>
+          <div>
+            <h3 style="font-size: 15px; font-weight: 700; color: #fef08a; text-transform: uppercase;">
+              LỄ HỘI LÀNG TRUYỀN THỐNG • HỘI XUÂN ĐẠI VIỆT
+            </h3>
+            <p style="font-size: 10px; color: #fde047;">
+              Trò chơi dân gian HTML5 Canvas: Ném Còn & Gánh Lụa Qua Cầu
+            </p>
+          </div>
+        </div>
+        <button id="btn-close-festival" class="pixel-btn" style="padding: 4px 10px; font-size: 14px; background: #78350f; color: white;">
+          ✕
+        </button>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div style="display: flex; gap: 8px; padding: 8px 14px; background: #fef3c7; border-bottom: 2px solid #d97706;">
+        <button id="tab-game-nem-con" class="pixel-btn" style="padding: 6px 14px; font-size: 12px; background: #b91c1c; color: white;">
+          🎯 GAME 1: TRẨY HỘI NÉM CÒN
+        </button>
+        <button id="tab-game-ganh-lua" class="pixel-btn" style="padding: 6px 14px; font-size: 12px; background: #faf5ef; color: #78350f;">
+          ⚖ GAME 2: GÁNH LỤA QUA CẦU
+        </button>
+      </div>
+
+      <!-- Canvas Area -->
+      <div style="flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f8fafc;">
+        
+        <!-- GAME 1: NÉM CÒN -->
+        <div id="game-nem-con-wrap" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%;">
+          <div style="display: flex; justify-content: space-between; width: 100%; max-width: 640px; font-size: 11px; font-family: monospace;">
+            <span>ĐIỂM: <strong id="nem-con-score" style="color: #b91c1c; font-size: 14px;">0</strong></span>
+            <span>LƯỢT NÉM: <strong id="nem-con-attempts">0</strong></span>
+            <span style="color: #78350f;">Kéo chuột hoặc thanh trượt để chỉnh góc và lực</span>
+          </div>
+
+          <canvas id="nem-con-canvas" width="640" height="360" style="border: 3px solid #3b2803; background: #87ceeb; box-shadow: 2px 2px 0 #000; width: 100%; max-width: 640px; touch-action: none; cursor: crosshair;"></canvas>
+
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; width: 100%; max-width: 640px; font-size: 11px;">
+            <label>Góc ném: <input id="slider-angle" type="range" min="15" max="85" value="45"> <span id="val-angle">45°</span></label>
+            <label>Lực ném: <input id="slider-power" type="range" min="15" max="100" value="65"> <span id="val-power">65%</span></label>
+            <button id="btn-throw-con" class="pixel-btn" style="padding: 6px 16px; background: #b91c1c; color: white;">
+              🚀 NÉM CÒN!
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME 2: GÁNH LỤA QUA CẦU -->
+        <div id="game-ganh-lua-wrap" style="display: none; flex-direction: column; align-items: center; gap: 10px; width: 100%;">
+          <div style="display: flex; justify-content: space-between; width: 100%; max-width: 640px; font-size: 11px; font-family: monospace;">
+            <span>QUÃNG ĐƯỜNG: <strong id="ganh-lua-dist" style="color: #047857; font-size: 14px;">0m</strong></span>
+            <span>CÂN BẰNG: <strong id="ganh-lua-balance">50%</strong></span>
+            <span style="color: #78350f;">Bấm ← và → để giữ thăng bằng đòn gánh</span>
+          </div>
+
+          <canvas id="ganh-lua-canvas" width="640" height="360" style="border: 3px solid #3b2803; background: #7dd3fc; box-shadow: 2px 2px 0 #000; width: 100%; max-width: 640px;"></canvas>
+
+          <div style="display: flex; gap: 10px;">
+            <button id="btn-tilt-left" class="pixel-btn" style="padding: 6px 16px; background: #0369a1; color: white;">
+              ⬅ NGHIÊNG TRÁI
+            </button>
+            <button id="btn-start-ganh" class="pixel-btn" style="padding: 6px 16px; background: #047857; color: white;">
+              BƯỚC TIẾP (GIỮ NHỊP)
+            </button>
+            <button id="btn-tilt-right" class="pixel-btn" style="padding: 6px 16px; background: #0369a1; color: white;">
+              NGHIÊNG PHẢI ➡
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    /* ==========================================================================
+       1. WEB AUDIO API SYNTHESIZER (8-BIT SOUND & BGM)
+       ========================================================================== */
+    class RetroSoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+        this.bgmPlaying = false;
+        this.bgmTimer = null;
+      }
+
+      initCtx() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) this.ctx = new AudioContextClass();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      playBlip(freq = 440) {
+        if (!this.enabled) return;
+        this.initCtx();
+        if (!this.ctx) return;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.08);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.08);
+      }
+
+      playTypewriter() {
+        if (!this.enabled) return;
+        this.initCtx();
+        if (!this.ctx) return;
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(600 + Math.random() * 200, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.03);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.03);
+      }
+
+      playEquip() {
+        if (!this.enabled) return;
+        this.initCtx();
+        if (!this.ctx) return;
+
+        const notes = [330, 440, 660];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            if (!this.ctx) return;
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+            gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.12);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start();
+            osc.stop(this.ctx.currentTime + 0.12);
+          }, idx * 60);
+        });
+      }
+
+      toggleBgm() {
+        this.initCtx();
+        this.bgmPlaying = !this.bgmPlaying;
+        if (this.bgmPlaying) {
+          this.startPentatonicLoop();
+        } else {
+          if (this.bgmTimer) clearInterval(this.bgmTimer);
+        }
+        return this.bgmPlaying;
+      }
+
+      startPentatonicLoop() {
+        if (this.bgmTimer) clearInterval(this.bgmTimer);
+        const courtScale = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
+        let step = 0;
+
+        this.bgmTimer = setInterval(() => {
+          if (!this.enabled || !this.bgmPlaying || !this.ctx) return;
+          const freq = courtScale[step % courtScale.length];
+          step = (step + 1 + Math.floor(Math.random() * 2)) % courtScale.length;
+
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.35);
+        }, 420);
+      }
+    }
+
+    const sound = new RetroSoundEngine();
+
+    /* ==========================================================================
+       2. DỮ LIỆU TRANG PHỤC & PHỤ KIỆN (MỞ RỘNG NAM & NỮ)
+       ========================================================================== */
+    const COSTUMES_DATA = [
+      // NỮ
+      {
+        id: 'ao-tac',
+        name: 'Áo Tấc Nữ',
+        gender: 'female',
+        era: 'Triều Nguyễn (Thế kỷ 19)',
+        rarity: 'Lễ Nghi',
+        tags: ['Trang trọng', 'Lễ nghi'],
+        baseScore: 50,
+        fullDescription: 'Áo Tấc là lễ phục trang nghiêm thời Nguyễn. Thân áo dài quá đầu gối, thụng tay rộng, cổ đứng lập lĩnh cài khuy. Y phục mặc định luôn đi cùng khăn vành dây (mấn) hoặc khăn đóng.',
+        colorVariants: [
+          { name: 'Đỏ Son Hỷ Khánh', primary: '#b91c1c', secondary: '#7f1d1d', accent: '#f59e0b' },
+          { name: 'Vàng Hoàng Cung', primary: '#f59e0b', secondary: '#b45309', accent: '#b91c1c' },
+          { name: 'Xanh Lục Bảo', primary: '#047857', secondary: '#064e3b', accent: '#f59e0b' }
+        ],
+        stats: [
+          { label: 'Phẩm cấp', val: '95/100' },
+          { label: 'Lễ nghi', val: '100/100' },
+          { label: 'Cổ kính', val: '90/100' },
+          { label: 'Độ rộng tay', val: 'Thụng (Rộng)' }
+        ]
+      },
+      {
+        id: 'ao-nhat-binh',
+        name: 'Áo Nhật Bình',
+        gender: 'female',
+        era: 'Triều Nguyễn (Hậu phi & Công chúa)',
+        rarity: 'Vương Giả',
+        tags: ['Vương giả', 'Hậu phi'],
+        baseScore: 60,
+        fullDescription: 'Nhật Bình là áo khoác của bậc Hậu phi, Công chúa. Cổ áo hình chữ nhật viền hoa văn tinh xảo, tay áo có dải ngũ sắc ngũ hành, trước ngực thắt dải nơ ngọc lộng lẫy.',
+        colorVariants: [
+          { name: 'Hoàng Kim Hậu Phi', primary: '#f59e0b', secondary: '#92400e', accent: '#b91c1c' },
+          { name: 'Xích Hồng Công Chúa', primary: '#b91c1c', secondary: '#7f1d1d', accent: '#f59e0b' },
+          { name: 'Thanh Thủy Nhã Nhặn', primary: '#0284c7', secondary: '#075985', accent: '#f59e0b' }
+        ],
+        stats: [
+          { label: 'Phẩm cấp', val: '100/100' },
+          { label: 'Lễ nghi', val: '100/100' },
+          { label: 'Vương giả', val: '100/100' },
+          { label: 'Hoa văn', val: 'Ngũ sắc viền' }
+        ]
+      },
+      {
+        id: 'ao-tu-than',
+        name: 'Áo Tứ Thân',
+        gender: 'female',
+        era: 'Cổ phong Dân gian Bắc Bộ',
+        rarity: 'Dân Gian',
+        tags: ['Dân gian', 'Lao động'],
+        baseScore: 50,
+        fullDescription: 'Áo Tứ Thân gồm bốn vạt vải, hai vạt trước buộc chéo hoặc buông rủ, bên trong lấp ló yếm đào thắm sắc và váy đụp đen chấm gót. Phù hợp nhất khi đi cùng nón ba tầm, quai thao.',
+        colorVariants: [
+          { name: 'Nâu Sồng Mộc Mạc', primary: '#78350f', secondary: '#451a03', accent: '#e11d48' },
+          { name: 'Xanh Lá Mạ', primary: '#15803d', secondary: '#166534', accent: '#f43f5e' },
+          { name: 'Tía Mận Thôn Quê', primary: '#831843', secondary: '#500724', accent: '#e11d48' }
+        ],
+        stats: [
+          { label: 'Gần gũi', val: '95/100' },
+          { label: 'Dân dã', val: '100/100' },
+          { label: 'Thanh thuần', val: '90/100' },
+          { label: 'Dáng áo', val: 'Vạt buông' }
+        ]
+      },
+      {
+        id: 'ao-lap-linh',
+        name: 'Áo Lập Lĩnh Nữ',
+        gender: 'female',
+        era: 'Triều Nguyễn (Đoan Trang)',
+        rarity: 'Đoan Trang',
+        tags: ['Đoan trang'],
+        baseScore: 55,
+        fullDescription: 'Áo năm thân lập lĩnh cổ cao, cài khuy lệch sườn, phom dáng thanh thoát, tôn vinh vẻ kín đáo, đoan trang của người phụ nữ Việt xưa.',
+        colorVariants: [
+          { name: 'Hồng Phấn Cung Nữ', primary: '#db2777', secondary: '#9d174d', accent: '#fef08a' },
+          { name: 'Xanh Ngọc Thanh Khiết', primary: '#059669', secondary: '#065f46', accent: '#fef08a' }
+        ],
+        stats: [
+          { label: 'Đoan trang', val: '95/100' },
+          { label: 'Thanh lịch', val: '90/100' },
+          { label: 'Khuy cài', val: 'Lệch sườn' },
+          { label: 'Dáng vạt', val: 'Thon thả' }
+        ]
+      },
+      {
+        id: 'ao-giao-linh',
+        name: 'Áo Giao Lĩnh Nữ',
+        gender: 'female',
+        era: 'Thời Lê - Nguyễn Cổ Phong',
+        rarity: 'Cổ Phong',
+        tags: ['Cổ phong', 'Đời thường'],
+        baseScore: 50,
+        fullDescription: 'Cổ áo vạt chéo chữ Y khoáng đạt, mặc kết hợp cùng chân váy quây xếp nếp duyên dáng và thắt dải lụa mềm mại quanh eo.',
+        colorVariants: [
+          { name: 'Thanh Lam Thủy Mặc', primary: '#0284c7', secondary: '#0369a1', accent: '#f59e0b' },
+          { name: 'Trắng Ngà Tinh Khôi', primary: '#e2e8f0', secondary: '#94a3b8', accent: '#b91c1c' }
+        ],
+        stats: [
+          { label: 'Cổ phong', val: '95/100' },
+          { label: 'Thơ mộng', val: '90/100' },
+          { label: 'Vạt áo', val: 'Giao chéo' },
+          { label: 'Chân váy', val: 'Quây nếp' }
+        ]
+      },
+
+      // NAM
+      {
+        id: 'ao-ma-doan',
+        name: 'Áo Mã Đoán (Áo Quan)',
+        gender: 'male',
+        era: 'Triều Nguyễn (Quan Chức)',
+        rarity: 'Triều Phục',
+        tags: ['Triều phục', 'Uy nghiêm'],
+        baseScore: 60,
+        fullDescription: 'Triều phục uy nghiêm của quan lại triều Nguyễn. Áo cổ đứng lập lĩnh, tay thụng rộng, đặc biệt trước ngực và sau lưng thêu Bổ tử hình vuông đính linh thú hoặc chim hạc phân định phẩm cấp.',
+        colorVariants: [
+          { name: 'Xanh Lam Đại Triều', primary: '#1e3a5f', secondary: '#0f172a', accent: '#f59e0b' },
+          { name: 'Đỏ Thẫm Tế Giao', primary: '#991b1b', secondary: '#450a0a', accent: '#f59e0b' },
+          { name: 'Tía Than Thâm Trầm', primary: '#3b0764', secondary: '#1e1b4b', accent: '#f59e0b' }
+        ],
+        stats: [
+          { label: 'Phẩm hàm', val: '100/100' },
+          { label: 'Uy nghiêm', val: '100/100' },
+          { label: 'Triều cương', val: '100/100' },
+          { label: 'Bổ tử', val: 'Thêu linh thú' }
+        ]
+      },
+      {
+        id: 'ao-trang-vat',
+        name: 'Áo Tràng Vạt (Giao Lĩnh Nam)',
+        gender: 'male',
+        era: 'Thời Lê - Nguyễn Cổ Phong',
+        rarity: 'Cổ Phong',
+        tags: ['Cổ phong', 'Đĩnh đạc'],
+        baseScore: 50,
+        fullDescription: 'Áo tràng vạt giao chéo cổ, tay áo rộng rãi khoáng đạt, phong thái của bậc danh sĩ, nho sinh hoặc quan viên lúc tao nhã thanh đàm.',
+        colorVariants: [
+          { name: 'Nâu Đất Nho Sinh', primary: '#451a03', secondary: '#271001', accent: '#f59e0b' },
+          { name: 'Xanh Rêu Đĩnh Đạc', primary: '#14532d', secondary: '#052e16', accent: '#f59e0b' }
+        ],
+        stats: [
+          { label: 'Khoáng đạt', val: '95/100' },
+          { label: 'Phong nhã', val: '95/100' },
+          { label: 'Nho nhã', val: '90/100' },
+          { label: 'Kiểu dáng', val: 'Vạt chéo' }
+        ]
+      },
+      {
+        id: 'ao-tac-nam',
+        name: 'Áo Tấc Nam',
+        gender: 'male',
+        era: 'Triều Nguyễn (Lễ Nghi)',
+        rarity: 'Lễ Nghi',
+        tags: ['Trang trọng', 'Lễ nghi'],
+        baseScore: 50,
+        fullDescription: 'Lễ phục nam giới rộng tay, cổ đứng cài năm khuy. Trang phục bắt buộc khi hành lễ tế tự, bái tổ, luôn đi kèm khăn xếp quấn đầu chỉnh chu.',
+        colorVariants: [
+          { name: 'Đen Tuyển Chuẩn Mực', primary: '#1e293b', secondary: '#0f172a', accent: '#f59e0b' },
+          { name: 'Xanh Dương Cổ Điển', primary: '#1e40af', secondary: '#1e3a8a', accent: '#f59e0b' }
+        ],
+        stats: [
+          { label: 'Lễ nghi', val: '95/100' },
+          { label: 'Chuẩn mực', val: '95/100' },
+          { label: 'Trang nghiêm', val: '90/100' },
+          { label: 'Tay áo', val: 'Thụt rộng' }
+        ]
+      },
+      {
+        id: 'ao-ngu-than-nam',
+        name: 'Áo Ngũ Thân Tay Chẽn Nam',
+        gender: 'male',
+        era: 'Triều Nguyễn (Quốc Phục)',
+        rarity: 'Chuẩn Mực',
+        tags: ['Linh hoạt', 'Chuẩn mực'],
+        baseScore: 50,
+        fullDescription: 'Quốc phục nam giới triều Nguyễn định hình bởi Chúa Nguyễn Phúc Khoát và Vua Minh Mạng. Tay áo bó gọn, năm thân che chắn thân thể, khuy cài ngay ngắn.',
+        colorVariants: [
+          { name: 'Xanh Chàm Cổ Kính', primary: '#1e3a5f', secondary: '#0f172a', accent: '#f59e0b' },
+          { name: 'Nâu Vải Đĩnh Đạc', primary: '#78350f', secondary: '#451a03', accent: '#f59e0b' }
+        ],
+        stats: [
+          { label: 'Linh hoạt', val: '95/100' },
+          { label: 'Quốc phục', val: '100/100' },
+          { label: 'Gọn gàng', val: '95/100' },
+          { label: 'Tay áo', val: 'Tay chẽn' }
+        ]
+      }
+    ];
+
+    const ACCESSORIES_DATA = [
+      // NAM
+      {
+        id: 'khan-xep',
+        name: 'Khăn Xếp (Khăn Đóng)',
+        gender: 'male',
+        tags: ['Lễ nghi'],
+        scoreBonus: 20,
+        compatibleCostumeIds: ['ao-tac-nam', 'ao-ngu-than-nam', 'ao-ma-doan'],
+        incompatibleCostumeIds: [],
+        icon: '🎩',
+        desc: 'Khăn vải đen quấn nhiều nếp chữ Nhân, chuẩn mực của nam nhi lúc hành lễ.'
+      },
+      {
+        id: 'the-bai-nga',
+        name: 'Thẻ Bài Ngà / Ngọc Bội',
+        gender: 'male',
+        tags: ['Quyền quý'],
+        scoreBonus: 15,
+        compatibleCostumeIds: ['ao-ma-doan', 'ao-trang-vat', 'ao-tac-nam'],
+        incompatibleCostumeIds: [],
+        icon: '🏷️',
+        desc: 'Thẻ ngà khắc chức tước hoặc ngọc bội giắt thắt lưng, biểu trưng cho phẩm hàm.'
+      },
+      {
+        id: 'guoc-moc',
+        name: 'Guốc Mộc Dân Gian',
+        gender: 'unisex',
+        tags: ['Dân gian'],
+        scoreBonus: 15,
+        compatibleCostumeIds: ['ao-tu-than', 'ao-giao-linh', 'ao-trang-vat'],
+        incompatibleCostumeIds: ['ao-ma-doan', 'ao-nhat-binh'], // Cấm kỵ với Triều Phục
+        icon: '🪵',
+        desc: 'Guốc gỗ đẽo mộc mạc, gõ lách cách thân thương trên đường thôn xóm.'
+      },
+
+      // NỮ
+      {
+        id: 'man',
+        name: 'Mấn (Khăn Vành Dây)',
+        gender: 'female',
+        tags: ['Lễ nghi', 'Vương giả'],
+        scoreBonus: 25,
+        compatibleCostumeIds: ['ao-tac', 'ao-nhat-binh', 'ao-lap-linh'],
+        incompatibleCostumeIds: [],
+        icon: '👑',
+        desc: 'Khăn vành cuốn nhiều vòng quanh trán, đoan trang và tôn quý bậc nhất.'
+      },
+      {
+        id: 'non-ba-tam',
+        name: 'Nón Ba Tầm (Quai Thao)',
+        gender: 'female',
+        tags: ['Dân gian'],
+        scoreBonus: 20,
+        compatibleCostumeIds: ['ao-tu-than', 'ao-giao-linh'],
+        incompatibleCostumeIds: ['ao-nhat-binh', 'ao-ma-doan'], // Lệch chuẩn
+        icon: '🌾',
+        desc: 'Nón tròn dẹt nan tre đan khéo léo, biểu tượng người con gái Bắc Bộ.'
+      },
+      {
+        id: 'tram-cai-da',
+        name: 'Trâm Cài Tóc Gắn Đá',
+        gender: 'female',
+        tags: ['Nữ tính', 'Quý phái', 'Hậu phi'],
+        scoreBonus: 25,
+        compatibleCostumeIds: ['ao-nhat-binh', 'ao-tac', 'ao-lap-linh'],
+        incompatibleCostumeIds: ['ao-tu-than'], // Lệch chuẩn
+        icon: '✨',
+        desc: 'Trâm bạc đính ngọc xà cừ hình chim phượng, trang sức cao quý hoàng cung.'
+      },
+      {
+        id: 'kieng-bac',
+        name: 'Kiềng Bạc Chạm Trổ',
+        gender: 'female',
+        tags: ['Sang trọng'],
+        scoreBonus: 20,
+        compatibleCostumeIds: ['ao-lap-linh', 'ao-tac', 'ao-giao-linh', 'ao-tu-than'],
+        incompatibleCostumeIds: [],
+        icon: '📿',
+        desc: 'Kiềng tròn bằng bạc chạm hoa sen, làm sáng ngời vùng cổ thanh tú.'
+      },
+      {
+        id: 'quat-lua-tron',
+        name: 'Quạt Lụa Tròn',
+        gender: 'female',
+        tags: ['Thơ mộng', 'Quý phái'],
+        scoreBonus: 20,
+        compatibleCostumeIds: ['ao-lap-linh', 'ao-giao-linh', 'ao-nhat-binh'],
+        incompatibleCostumeIds: [],
+        icon: '🪭',
+        desc: 'Quạt lụa tròn vẽ hoa sen thủy mặc, biểu tượng phong nhã của tiểu thư.'
+      },
+      {
+        id: 'hai-mui-vut',
+        name: 'Hài Mũi Vút Thêu Hoa',
+        gender: 'female',
+        tags: ['Lễ nghi', 'Vương giả'],
+        scoreBonus: 25,
+        compatibleCostumeIds: ['ao-nhat-binh', 'ao-tac', 'ao-lap-linh'],
+        incompatibleCostumeIds: ['ao-tu-than'],
+        icon: '👠',
+        desc: 'Hài gấm mũi cong vút thêu kim tuyến, trang phục cao quý chốn đại lễ.'
+      }
+    ];
+
+    /* ==========================================================================
+       3. HỆ THỐNG CHẤM ĐIỂM & ĐÁNH GIÁ PHỐI ĐỒ (calculateScore)
+       ========================================================================== */
+    function calculateScore(costume, equippedAccessories) {
+      let currentScore = costume.baseScore || 50;
+      let warningMessage = '';
+      let ruleBreak = false;
+
+      const equippedIds = equippedAccessories.map(a => a.id);
+      const hasMan = equippedIds.includes('man');
+      const hasKhanXep = equippedIds.includes('khan-xep');
+      const hasNonBaTam = equippedIds.includes('non-ba-tam');
+      const hasGuocMoc = equippedIds.includes('guoc-moc');
+      const hasTramCaiDa = equippedIds.includes('tram-cai-da');
+
+      // Điểm cộng từ phụ kiện
+      equippedAccessories.forEach(acc => {
+        const isCompatible = acc.compatibleCostumeIds.includes(costume.id);
+        const hasTagOverlap = acc.tags.some(t => costume.tags.includes(t));
+
+        if (isCompatible || hasTagOverlap) {
+          currentScore += acc.scoreBonus;
+        } else {
+          currentScore += Math.max(10, acc.scoreBonus - 10);
+        }
+      });
+
+      // LUẬT PHẠT 1: Triều phục (Mã Đoán, Nhật Bình) cấm kỵ đi cùng vật phẩm dân dã (Guốc mộc, Nón ba tầm)
+      if ((costume.id === 'ao-ma-doan' || costume.id === 'ao-nhat-binh') && (hasGuocMoc || hasNonBaTam)) {
+        currentScore -= 50;
+        ruleBreak = true;
+        warningMessage = 'Cảnh báo: Lệch chuẩn triều cương! Áo Mã Đoán và Áo Nhật Bình là phẩm cấp cao quý chốn hoàng triều, tuyệt đối không thể phối cùng Guốc Mộc hay Nón Ba Tầm dân gian.';
+      }
+
+      // LUẬT PHẠT 2: Áo Tứ Thân dân gian lao động không thể đi cùng Trâm Cài Hậu Phi đính đá
+      if (costume.id === 'ao-tu-than' && hasTramCaiDa) {
+        currentScore -= 30;
+        ruleBreak = true;
+        if (!warningMessage) {
+          warningMessage = 'Cảnh báo: Trâm cài quý phái cung đình không hợp với Áo Tứ Thân chất phác nơi thôn dã! Hãy đổi sang Nón Ba Tầm hoặc Quai Thao.';
+        }
+      }
+
+      // LUẬT PHẠT 3: Áo Tấc bắt buộc phải có khăn đội đầu (Mấn hoặc Khăn Xếp)
+      if (costume.id === 'ao-tac' || costume.id === 'ao-tac-nam') {
+        const hasHeadgear = costume.gender === 'male' ? hasKhanXep : (hasMan || hasKhanXep);
+        if (!hasHeadgear) {
+          currentScore -= 20;
+          ruleBreak = true;
+          if (!warningMessage) {
+            warningMessage = 'Áo Tấc là đại lễ phục trang nghiêm. Đừng quên đội thêm Khăn đóng hoặc Mấn để tổng thể thêm phần tôn kính, chỉn chu.';
+          }
+        }
+      }
+
+      currentScore = Math.max(0, Math.min(100, currentScore));
+
+      let status = 'good';
+      let title = 'Phối Đồ Khá Hài Hòa';
+      let feedback = warningMessage;
+
+      if (currentScore < 50) {
+        status = 'danger';
+        title = '🚨 Cảnh Báo Lệch Chuẩn Lịch Sử!';
+        if (!feedback) {
+          feedback = 'Cách phối đồ hiện tại chưa đúng chuẩn mực văn hóa lịch sử! Hãy đọc kỹ Tag của trang phục và phụ kiện để phối đồ chuẩn xác.';
+        }
+      } else if (currentScore === 100) {
+        status = 'perfect';
+        title = '🌟 Tuyệt Phẩm Đại Việt 100/100';
+        feedback = 'Tuyệt mỹ! Bộ Việt Phục của bạn đã chuẩn xác cả về thẩm mỹ lẫn điển chế lịch sử. Từng chi tiết đều toát lên cốt cách dân tộc!';
+      } else if (ruleBreak) {
+        status = 'warning';
+        title = '⚠️ Cần Điều Chỉnh Phụ Kiện';
+      } else {
+        status = 'good';
+        title = '✨ Bộ Y Phục Đẹp Mắt';
+        if (!feedback) {
+          if (equippedAccessories.length === 0) {
+            feedback = 'Bộ y phục đã chỉn chu. Bạn có thể phối thêm tối đa 2 món phụ kiện để chạm mốc 100 điểm tuyệt phẩm!';
+          } else if (equippedAccessories.length === 1) {
+            feedback = 'Phối đồ rất khéo léo! Hãy trang bị thêm 1 phụ kiện nữa cùng phẩm cấp để đạt điểm số tuyệt đối!';
+          } else {
+            feedback = 'Tổng thể y phục trang nhã, đúng tinh thần cổ truyền. Rất thích hợp cho các dịp tao nhã!';
+          }
+        }
+      }
+
+      return { score: currentScore, status, title, feedback, ruleBreak };
+    }
+
+    /* ==========================================================================
+       4. TRẠNG THÁI ỨNG DỤNG & ĐIỀU KHIỂN
+       ========================================================================== */
+    let currentGender = 'female';
+    let currentCostume = COSTUMES_DATA[0];
+    let currentVariant = currentCostume.colorVariants[0];
+    let equippedAccessories = [];
+    let currentPose = 'idle';
+    let currentZoom = 1;
+
+    // Typewriter helpers
+    let scoreTypeTimer = null;
+    let detailTypeTimer = null;
+
+    function initApp() {
+      setupEventListeners();
+      renderAll();
+    }
+
+    function setupEventListeners() {
+      // Giới tính
+      document.getElementById('toggle-female').addEventListener('click', () => setGender('female'));
+      document.getElementById('toggle-male').addEventListener('click', () => setGender('male'));
+
+      // Tư thế
+      document.getElementById('pose-idle').addEventListener('click', () => setPose('idle'));
+      document.getElementById('pose-salute').addEventListener('click', () => setPose('salute'));
+      document.getElementById('pose-fan').addEventListener('click', () => setPose('fan'));
+
+      // Zoom
+      document.querySelectorAll('.btn-zoom').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          sound.playBlip(500);
+          const z = parseFloat(e.target.dataset.zoom);
+          setZoom(z);
+        });
+      });
+
+      // Âm thanh
+      document.getElementById('btn-bgm').addEventListener('click', () => {
+        const active = sound.toggleBgm();
+        const btn = document.getElementById('btn-bgm');
+        btn.innerText = active ? '🎵 BGM: BẬT' : '🔇 BGM: TẮT';
+        btn.style.background = active ? '#fef08a' : '#451a03';
+        btn.style.color = active ? '#1e1305' : '#fed7aa';
+      });
+
+      document.getElementById('btn-sfx').addEventListener('click', () => {
+        sound.enabled = !sound.enabled;
+        const btn = document.getElementById('btn-sfx');
+        btn.innerText = sound.enabled ? '🔊 SFX' : '🔇 MUTE';
+        if (sound.enabled) sound.playBlip(520);
+      });
+
+      document.getElementById('btn-crt').addEventListener('click', () => {
+        sound.playBlip(380);
+        const scan = document.getElementById('scanlines');
+        scan.style.display = scan.style.display === 'none' ? 'block' : 'none';
+      });
+
+      // Modal Lễ hội
+      document.getElementById('btn-open-festival').addEventListener('click', () => {
+        sound.playBlip(560);
+        document.getElementById('festival-modal').style.display = 'flex';
+        initNemConGame();
+      });
+
+      document.getElementById('btn-close-festival').addEventListener('click', () => {
+        sound.playBlip(300);
+        document.getElementById('festival-modal').style.display = 'none';
+      });
+
+      // Tabs Lễ hội
+      document.getElementById('tab-game-nem-con').addEventListener('click', () => {
+        sound.playBlip(420);
+        document.getElementById('tab-game-nem-con').style.background = '#b91c1c';
+        document.getElementById('tab-game-nem-con').style.color = 'white';
+        document.getElementById('tab-game-ganh-lua').style.background = '#faf5ef';
+        document.getElementById('tab-game-ganh-lua').style.color = '#78350f';
+        document.getElementById('game-nem-con-wrap').style.display = 'flex';
+        document.getElementById('game-ganh-lua-wrap').style.display = 'none';
+        initNemConGame();
+      });
+
+      document.getElementById('tab-game-ganh-lua').addEventListener('click', () => {
+        sound.playBlip(460);
+        document.getElementById('tab-game-ganh-lua').style.background = '#047857';
+        document.getElementById('tab-game-ganh-lua').style.color = 'white';
+        document.getElementById('tab-game-nem-con').style.background = '#faf5ef';
+        document.getElementById('tab-game-nem-con').style.color = '#78350f';
+        document.getElementById('game-nem-con-wrap').style.display = 'none';
+        document.getElementById('game-ganh-lua-wrap').style.display = 'flex';
+        initGanhLuaGame();
+      });
+    }
+
+    function setGender(g) {
+      if (currentGender === g) return;
+      currentGender = g;
+      sound.playBlip(440);
+
+      // Cập nhật giao diện theo giới tính
+      const isMale = g === 'male';
+      document.getElementById('header-icon').innerText = isMale ? '🐉' : '🪷';
+      document.getElementById('stage-title').innerText = isMale ? 'CHÁNH ĐIỆN ĐẠI TRIỀU (NAM GIỚI)' : 'HẬU CUNG ĐẠI TRIỀU (NỮ TỘC)';
+      document.getElementById('stage-header').style.background = isMale ? '#1e3a5f' : '#831843';
+      document.getElementById('character-viewport').className = isMale ? 'bg-court-male' : 'bg-court-female';
+      document.getElementById('wardrobe-icon').innerText = isMale ? '🐉' : '🪷';
+      document.getElementById('wardrobe-title').innerText = isMale ? 'TỦ ĐỒ NAM QUAN VIÊN' : 'TỦ ĐỒ NỮ QUÝ TỘC';
+      document.getElementById('accessories-title').innerText = isMale ? 'PHỤ KIỆN NAM GIỚI' : 'PHỤ KIỆN NỮ QUÝ TỘC';
+
+      // Nút active
+      document.getElementById('toggle-female').style.background = isMale ? '#faf5ef' : '#831843';
+      document.getElementById('toggle-female').style.color = isMale ? '#831843' : 'white';
+      document.getElementById('toggle-male').style.background = isMale ? '#1e3a5f' : '#faf5ef';
+      document.getElementById('toggle-male').style.color = isMale ? 'white' : '#1e3a5f';
+
+      // Lọc danh sách trang phục
+      const filtered = COSTUMES_DATA.filter(c => c.gender === g || c.gender === 'unisex');
+      currentCostume = filtered[0];
+      currentVariant = currentCostume.colorVariants[0];
+      equippedAccessories = [];
+
+      renderAll();
+    }
+
+    function setPose(p) {
+      currentPose = p;
+      sound.playBlip(400);
+      ['idle', 'salute', 'fan'].forEach(pos => {
+        const btn = document.getElementById('pose-' + pos);
+        if (pos === p) {
+          btn.style.background = '#b91c1c';
+          btn.style.color = 'white';
+          btn.style.borderColor = '#fef08a';
+        } else {
+          btn.style.background = '#faf5ef';
+          btn.style.color = '#78350f';
+          btn.style.borderColor = '#d97706';
+        }
+      });
+      renderCharacter();
+    }
+
+    function setZoom(z) {
+      currentZoom = z;
+      document.querySelectorAll('.btn-zoom').forEach(btn => {
+        if (parseFloat(btn.dataset.zoom) === z) {
+          btn.style.background = '#b45309';
+          btn.style.color = 'white';
+        } else {
+          btn.style.background = '#faf5ef';
+          btn.style.color = '#78350f';
+        }
+      });
+      document.getElementById('character-container').style.transform = `scale(${z})`;
+    }
+
+    function renderAll() {
+      renderCharacter();
+      renderScore();
+      renderDetails();
+      renderWardrobe();
+      renderAccessories();
+    }
+
+    /* ==========================================================================
+       5. RENDER CHARACTER SVG MODEL (PIXEL ART ENGINE)
+       ========================================================================== */
+    function renderCharacter() {
+      const primary = currentVariant.primary;
+      const secondary = currentVariant.secondary;
+      const accent = currentVariant.accent;
+
+      const equippedIds = equippedAccessories.map(a => a.id);
+      const hasMan = equippedIds.includes('man');
+      const hasNonBaTam = equippedIds.includes('non-ba-tam');
+      const hasKiengBac = equippedIds.includes('kieng-bac');
+      const hasQuatLua = equippedIds.includes('quat-lua-tron');
+      const hasKhanXep = equippedIds.includes('khan-xep');
+      const hasTheBaiNga = equippedIds.includes('the-bai-nga');
+      const hasGuocMoc = equippedIds.includes('guoc-moc');
+      const hasTramCaiDa = equippedIds.includes('tram-cai-da');
+      const hasHaiMuiVut = equippedIds.includes('hai-mui-vut');
+
+      document.getElementById('stage-costume-name').innerText = currentCostume.name;
+      document.getElementById('stage-variant-name').innerText = `[${currentVariant.name}]`;
+      document.getElementById('stage-floor-badge').innerText = `${currentGender === 'male' ? '🐉 NAM QUAN VIÊN' : '🪷 NỮ QUÝ TỘC'} • ${currentCostume.name.toUpperCase()}`;
+
+      let costumeSpecificSvg = '';
+
+      if (currentCostume.id === 'ao-ma-doan') {
+        costumeSpecificSvg = `
+          <!-- Áo Mã Đoán Quan viên có Bổ tử thêu hạc -->
+          <rect x="9" y="30" width="12" height="23" fill="${secondary}" />
+          <rect x="11" y="32" width="9" height="21" fill="${primary}" />
+          <rect x="9" y="49" width="12" height="4" fill="${accent}" />
+          <rect x="43" y="30" width="12" height="23" fill="${secondary}" />
+          <rect x="44" y="32" width="9" height="21" fill="${primary}" />
+          <rect x="43" y="49" width="12" height="4" fill="${accent}" />
+          <rect x="20" y="27" width="24" height="35" fill="${primary}" />
+          <rect x="19" y="40" width="26" height="22" fill="${primary}" />
+          <!-- Bổ tử trước ngực -->
+          <rect x="26" y="32" width="12" height="12" fill="#b91c1c" />
+          <rect x="27" y="33" width="10" height="10" fill="#f59e0b" />
+          <circle cx="32" cy="38" r="3" fill="#ffffff" />
+          <circle cx="32" cy="38" r="1.5" fill="#b91c1c" />
+          <!-- Cổ đứng cài khuy vàng -->
+          <rect x="27" y="23" width="10" height="4" fill="${primary}" />
+          <circle cx="34" cy="27" r="1.2" fill="#ffd700" />
+        `;
+      } else if (currentCostume.id === 'ao-tu-than') {
+        costumeSpecificSvg = `
+          <!-- Áo Tứ Thân dân gian -->
+          <!-- Váy đụp đen -->
+          <rect x="21" y="47" width="22" height="21" fill="#0f172a" />
+          <!-- Ống tay gọn -->
+          <rect x="16" y="29" width="6" height="19" fill="${secondary}" />
+          <rect x="42" y="29" width="6" height="19" fill="${secondary}" />
+          <rect x="21" y="27" width="22" height="30" fill="${primary}" />
+          <!-- Yếm đào đỏ -->
+          <polygon points="27,24 37,24 35,35 29,35" fill="#e11d48" />
+          <!-- Dải thắt lưng buộc eo buông vạt -->
+          <rect x="20" y="42" width="24" height="3" fill="#10b981" />
+          <rect x="29" y="45" width="3" height="14" fill="#10b981" />
+          <rect x="33" y="45" width="2" height="12" fill="#f43f5e" />
+        `;
+      } else if (currentCostume.id === 'ao-nhat-binh') {
+        costumeSpecificSvg = `
+          <!-- Áo Nhật Bình cổ chữ nhật hoa văn -->
+          <rect x="12" y="30" width="9" height="20" fill="${secondary}" />
+          <rect x="13" y="31" width="7" height="19" fill="${primary}" />
+          <rect x="43" y="30" width="9" height="20" fill="${secondary}" />
+          <rect x="44" y="31" width="7" height="19" fill="${primary}" />
+          <rect x="21" y="27" width="22" height="34" fill="${primary}" />
+          <rect x="20" y="36" width="24" height="26" fill="${primary}" />
+          <!-- Cổ Nhật Bình viền ngũ sắc -->
+          <rect x="25" y="23" width="14" height="13" fill="#d4af37" />
+          <rect x="26" y="24" width="12" height="11" fill="#b71c1c" />
+          <rect x="28" y="26" width="8" height="7" fill="#ffd54f" />
+          <!-- Dải ngũ sắc trước ngực -->
+          <rect x="30" y="36" width="1" height="24" fill="#c1272d" />
+          <rect x="31" y="36" width="1" height="24" fill="#ffd700" />
+          <rect x="32" y="36" width="1" height="25" fill="#29b6f6" />
+          <rect x="33" y="36" width="1" height="24" fill="#ffffff" />
+          <rect x="34" y="36" width="1" height="24" fill="#2e7d32" />
+        `;
+      } else if (currentCostume.id === 'ao-trang-vat' || currentCostume.id === 'ao-giao-linh') {
+        costumeSpecificSvg = `
+          <!-- Giao lĩnh / Tràng vạt vạt chéo -->
+          <rect x="11" y="29" width="11" height="20" fill="${secondary}" />
+          <rect x="42" y="29" width="11" height="20" fill="${secondary}" />
+          <rect x="21" y="27" width="22" height="35" fill="${primary}" />
+          <polygon points="25,23 38,36 34,38 23,25" fill="${secondary}" />
+          <polygon points="39,23 26,38 30,40 41,25" fill="#f59e0b" />
+          <rect x="21" y="44" width="22" height="3" fill="#1e293b" />
+        `;
+      } else {
+        // Áo Tấc / Lập Lĩnh / Ngũ Thân
+        costumeSpecificSvg = `
+          <!-- Áo Tấc / Lập Lĩnh -->
+          <rect x="10" y="30" width="11" height="22" fill="${secondary}" />
+          <rect x="12" y="32" width="8" height="20" fill="${primary}" />
+          <rect x="43" y="30" width="11" height="22" fill="${secondary}" />
+          <rect x="44" y="32" width="8" height="20" fill="${primary}" />
+          <rect x="21" y="27" width="22" height="34" fill="${primary}" />
+          <rect x="20" y="34" width="24" height="27" fill="${primary}" />
+          <rect x="27" y="23" width="10" height="4" fill="${primary}" />
+          <circle cx="34" cy="27" r="1.2" fill="#ffd700" />
+          <circle cx="35" cy="30" r="1.2" fill="#ffd700" />
+        `;
+      }
+
+      // Phụ kiện SVG
+      let accessoriesSvg = '';
+      if (hasMan) {
+        accessoriesSvg += `
+          <!-- Mấn / Khăn Vành -->
+          <rect x="21" y="10" width="22" height="6" fill="#f59e0b" />
+          <rect x="22" y="9" width="20" height="2" fill="#b91c1c" />
+          <rect x="23" y="12" width="18" height="2" fill="#ffd700" />
+        `;
+      }
+      if (hasKhanXep) {
+        accessoriesSvg += `
+          <!-- Khăn Xếp Nam -->
+          <rect x="22" y="9" width="20" height="7" fill="#0f172a" />
+          <line x1="24" y1="12" x2="40" y2="12" stroke="#334155" stroke-width="1" />
+          <line x1="26" y1="14" x2="38" y2="14" stroke="#475569" stroke-width="1" />
+        `;
+      }
+      if (hasNonBaTam) {
+        accessoriesSvg += `
+          <!-- Nón Ba Tầm Quai Thao -->
+          <ellipse cx="32" cy="11" rx="19" ry="4" fill="#fde68a" stroke="#b45309" stroke-width="1" />
+          <ellipse cx="32" cy="10" rx="9" ry="2" fill="#d97706" />
+          <line x1="22" y1="14" x2="22" y2="40" stroke="#451a03" stroke-width="1.5" />
+          <line x1="42" y1="14" x2="42" y2="40" stroke="#451a03" stroke-width="1.5" />
+        `;
+      }
+      if (hasTramCaiDa) {
+        accessoriesSvg += `
+          <!-- Trâm Cài Đá Chim Phượng -->
+          <line x1="38" y1="10" x2="46" y2="6" stroke="#f59e0b" stroke-width="1.5" />
+          <circle cx="46" cy="6" r="2" fill="#38bdf8" />
+          <circle cx="47" cy="5" r="1" fill="#ffffff" />
+        `;
+      }
+      if (hasKiengBac) {
+        accessoriesSvg += `
+          <!-- Kiềng Bạc Chạm Trổ -->
+          <path d="M 27 25 C 27 30, 37 30, 37 25" stroke="#ffffff" stroke-width="2" fill="none" />
+          <circle cx="32" cy="29" r="1.2" fill="#cbd5e1" />
+        `;
+      }
+      if (hasTheBaiNga) {
+        accessoriesSvg += `
+          <!-- Thẻ Bài Ngà Giắt Lưng -->
+          <rect x="36" y="44" width="3" height="9" fill="#fef3c7" stroke="#78350f" stroke-width="0.8" />
+          <line x1="37.5" y1="44" x2="37.5" y2="40" stroke="#b91c1c" stroke-width="1" />
+        `;
+      }
+      if (hasQuatLua) {
+        accessoriesSvg += `
+          <!-- Quạt Lụa Tròn -->
+          <circle cx="48" cy="42" r="7" fill="#fef08a" stroke="#d97706" stroke-width="1" />
+          <circle cx="48" cy="42" r="2" fill="#f43f5e" />
+          <line x1="48" y1="49" x2="48" y2="58" stroke="#78350f" stroke-width="1.5" />
+        `;
+      }
+      if (hasGuocMoc) {
+        accessoriesSvg += `
+          <!-- Guốc Mộc -->
+          <rect x="24" y="68" width="6" height="3" fill="#b45309" />
+          <rect x="34" y="68" width="6" height="3" fill="#b45309" />
+        `;
+      } else if (hasHaiMuiVut) {
+        accessoriesSvg += `
+          <!-- Hài Mũi Vút -->
+          <rect x="24" y="68" width="6" height="3" fill="#b91c1c" />
+          <rect x="34" y="68" width="6" height="3" fill="#b91c1c" />
+          <polygon points="23,68 24,67 24,69" fill="#f59e0b" />
+          <polygon points="40,68 41,67 40,69" fill="#f59e0b" />
+        `;
+      }
+
+      const svgHtml = `
+        <svg viewBox="0 0 64 80" width="256" height="320" style="shape-rendering: crispEdges; image-rendering: pixelated; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.4));">
+          <!-- Bệ đứng & Thảm ngọc -->
+          <ellipse cx="32" cy="74" rx="20" ry="4" fill="rgba(0,0,0,0.3)" />
+          <rect x="14" y="70" width="36" height="3" fill="#b91c1c" />
+          <rect x="13" y="71" width="38" height="1" fill="#f59e0b" />
+          <rect x="10" y="73" width="44" height="2" fill="#334155" />
+          <rect x="8" y="75" width="48" height="3" fill="#1e293b" />
+
+          <!-- Quần / Váy nền -->
+          <rect x="24" y="58" width="7" height="10" fill="#ede8de" />
+          <rect x="33" y="58" width="7" height="10" fill="#ede8de" />
+
+          <!-- Thân áo chính -->
+          ${costumeSpecificSvg}
+
+          <!-- Cổ & Khuôn mặt -->
+          <rect x="29" y="21" width="6" height="4" fill="#fed0ab" />
+          <!-- Đầu & Khuôn mặt pixel -->
+          <rect x="26" y="13" width="12" height="11" fill="#fed0ab" />
+          <!-- Tóc -->
+          <rect x="25" y="11" width="14" height="4" fill="#18121e" />
+          <rect x="24" y="13" width="2" height="7" fill="#18121e" />
+          <rect x="38" y="13" width="2" height="7" fill="#18121e" />
+          <!-- Mắt -->
+          <rect x="28" y="17" width="2" height="2" fill="#120d18" />
+          <rect x="34" y="17" width="2" height="2" fill="#120d18" />
+          <!-- Miệng / Má hồng -->
+          <rect x="31" y="21" width="2" height="1" fill="#e11d48" />
+          <rect x="27" y="19" width="1" height="1" fill="#fda4af" />
+          <rect x="36" y="19" width="1" height="1" fill="#fda4af" />
+
+          <!-- Phụ kiện bổ trợ -->
+          ${accessoriesSvg}
+        </svg>
+      `;
+
+      document.getElementById('character-container').innerHTML = svgHtml;
+    }
+
+    /* ==========================================================================
+       6. RENDER SCORE & FEEDBACK
+       ========================================================================== */
+    function renderScore() {
+      const evalResult = calculateScore(currentCostume, equippedAccessories);
+
+      document.getElementById('score-number').innerText = `${evalResult.score}/100`;
+      document.getElementById('score-title').innerText = evalResult.title;
+
+      const bar = document.getElementById('score-bar');
+      bar.style.width = `${evalResult.score}%`;
+
+      const scoreBox = document.getElementById('score-panel');
+      scoreBox.className = 'pixel-carved-gold';
+
+      if (evalResult.status === 'perfect') {
+        bar.style.backgroundColor = '#f59e0b';
+        scoreBox.classList.add('animate-gold-glow');
+        document.getElementById('score-number').style.color = '#b45309';
+      } else if (evalResult.status === 'danger') {
+        bar.style.backgroundColor = '#ef4444';
+        scoreBox.classList.add('animate-red-blink');
+        document.getElementById('score-number').style.color = '#ef4444';
+      } else if (evalResult.status === 'warning') {
+        bar.style.backgroundColor = '#f43f5e';
+        document.getElementById('score-number').style.color = '#e11d48';
+      } else {
+        bar.style.backgroundColor = '#10b981';
+        document.getElementById('score-number').style.color = '#047857';
+      }
+
+      // Typewriter feedback
+      if (scoreTypeTimer) clearInterval(scoreTypeTimer);
+      const textElem = document.getElementById('score-feedback-text');
+      textElem.innerText = '';
+      let idx = 0;
+      const full = evalResult.feedback;
+      scoreTypeTimer = setInterval(() => {
+        idx += 2;
+        if (idx >= full.length) {
+          textElem.innerText = full;
+          clearInterval(scoreTypeTimer);
+        } else {
+          textElem.innerText = full.slice(0, idx);
+          if (idx % 8 === 0) sound.playTypewriter();
+        }
+      }, 20);
+    }
+
+    /* ==========================================================================
+       7. RENDER DETAILS BOX
+       ========================================================================== */
+    function renderDetails() {
+      document.getElementById('detail-name').innerText = currentCostume.name;
+      document.getElementById('detail-era').innerText = currentCostume.era;
+
+      // Tags
+      const tagsContainer = document.getElementById('detail-tags');
+      tagsContainer.innerHTML = currentCostume.tags.map(t => `
+        <span style="font-size: 10px; background: #fef3c7; color: #92400e; border: 1px solid #d97706; padding: 2px 6px; font-family: monospace;">
+          #${t}
+        </span>
+      `).join('');
+
+      // Typewriter description
+      if (detailTypeTimer) clearInterval(detailTypeTimer);
+      const descElem = document.getElementById('detail-description');
+      descElem.innerText = '';
+      let idx = 0;
+      const full = currentCostume.fullDescription;
+      detailTypeTimer = setInterval(() => {
+        idx += 2;
+        if (idx >= full.length) {
+          descElem.innerText = full;
+          clearInterval(detailTypeTimer);
+        } else {
+          descElem.innerText = full.slice(0, idx);
+          if (idx % 10 === 0) sound.playTypewriter();
+        }
+      }, 18);
+
+      // Color variants
+      const varContainer = document.getElementById('color-variants-container');
+      varContainer.innerHTML = currentCostume.colorVariants.map(v => {
+        const isSelected = v.name === currentVariant.name;
+        return `
+          <button class="pixel-btn" onclick="selectVariant('${v.name}')" style="padding: 4px 8px; font-size: 11px; background: ${isSelected ? '#b91c1c' : '#faf5ef'}; color: ${isSelected ? 'white' : '#78350f'}; border-color: ${isSelected ? '#fef08a' : '#d97706'};">
+            <span style="display: inline-block; width: 10px; height: 10px; background: ${v.primary}; border: 1px solid #000; margin-right: 4px;"></span>
+            ${v.name}
+          </button>
+        `;
+      }).join('');
+
+      // Stats
+      const statsContainer = document.getElementById('stats-container');
+      statsContainer.innerHTML = currentCostume.stats.map(s => `
+        <div style="background: #faf6ed; border: 1px solid #d97706; padding: 4px 8px; display: flex; justify-content: space-between;">
+          <span style="color: #78350f;">${s.label}:</span>
+          <strong style="color: #b91c1c;">${s.val}</strong>
+        </div>
+      `).join('');
+    }
+
+    function selectVariant(varName) {
+      const v = currentCostume.colorVariants.find(x => x.name === varName);
+      if (v) {
+        sound.playBlip(540);
+        currentVariant = v;
+        renderCharacter();
+        renderDetails();
+      }
+    }
+
+    /* ==========================================================================
+       8. RENDER WARDROBE GRID
+       ========================================================================== */
+    function renderWardrobe() {
+      const list = COSTUMES_DATA.filter(c => c.gender === currentGender || c.gender === 'unisex');
+      document.getElementById('wardrobe-count').innerText = `${list.length} BỘ Y PHỤC`;
+
+      const grid = document.getElementById('costumes-grid');
+      grid.innerHTML = list.map(c => {
+        const isSelected = c.id === currentCostume.id;
+        return `
+          <button class="pixel-btn" onclick="selectCostume('${c.id}')" style="padding: 8px 6px; display: flex; flex-direction: column; align-items: center; gap: 4px; background: ${isSelected ? '#b91c1c' : '#faf5ef'}; color: ${isSelected ? 'white' : '#1e1305'}; border: 2px solid ${isSelected ? '#fef08a' : '#3b2803'};">
+            <div style="width: 28px; height: 28px; background: ${c.colorVariants[0].primary}; border: 1px solid #000; box-shadow: 1px 1px 0 #000;"></div>
+            <strong style="font-size: 11px; text-align: center;">${c.name}</strong>
+            <span style="font-size: 9px; opacity: 0.8; font-family: monospace;">${c.rarity}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCostume(costumeId) {
+      const c = COSTUMES_DATA.find(x => x.id === costumeId);
+      if (c) {
+        sound.playEquip();
+        currentCostume = c;
+        currentVariant = c.colorVariants[0];
+        renderCharacter();
+        renderScore();
+        renderDetails();
+        renderWardrobe();
+      }
+    }
+
+    /* ==========================================================================
+       9. RENDER ACCESSORIES GRID
+       ========================================================================== */
+    function renderAccessories() {
+      const list = ACCESSORIES_DATA.filter(a => a.gender === currentGender || a.gender === 'unisex');
+      document.getElementById('accessories-counter').innerText = `${equippedAccessories.length}/2 ĐÃ ĐEO`;
+
+      const grid = document.getElementById('accessories-grid');
+      grid.innerHTML = list.map(a => {
+        const isEquipped = equippedAccessories.some(x => x.id === a.id);
+        return `
+          <button class="pixel-btn" onclick="toggleAccessory('${a.id}')" style="padding: 6px 8px; display: flex; align-items: center; justify-content: space-between; gap: 4px; background: ${isEquipped ? '#047857' : '#faf5ef'}; color: ${isEquipped ? 'white' : '#1e1305'}; border: 2px solid ${isEquipped ? '#fef08a' : '#3b2803'};">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 16px;">${a.icon}</span>
+              <div style="text-align: left;">
+                <div style="font-size: 11px; font-weight: 700;">${a.name}</div>
+                <div style="font-size: 9px; opacity: 0.8; font-family: monospace;">+${a.scoreBonus} Điểm</div>
+              </div>
+            </div>
+            <span style="font-size: 11px;">${isEquipped ? '✓' : '+'}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function toggleAccessory(accId) {
+      sound.playEquip();
+      const acc = ACCESSORIES_DATA.find(x => x.id === accId);
+      if (!acc) return;
+
+      const exists = equippedAccessories.some(x => x.id === accId);
+      if (exists) {
+        equippedAccessories = equippedAccessories.filter(x => x.id !== accId);
+      } else {
+        if (equippedAccessories.length >= 2) {
+          equippedAccessories = [equippedAccessories[1], acc];
+        } else {
+          equippedAccessories.push(acc);
+        }
+      }
+
+      renderCharacter();
+      renderScore();
+      renderAccessories();
+    }
+
+    /* ==========================================================================
+       10. HTML5 CANVAS MINI-GAME 1: TRẨY HỘI NÉM CÒN
+       ========================================================================== */
+    let nemConAnimId = null;
+    let nemConState = {
+      ballX: 75,
+      ballY: 260,
+      vx: 0,
+      vy: 0,
+      isFlying: false,
+      score: 0,
+      attempts: 0,
+      paperBroken: false
+    };
+
+    function initNemConGame() {
+      const canvas = document.getElementById('nem-con-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const angleSlider = document.getElementById('slider-angle');
+      const powerSlider = document.getElementById('slider-power');
+      const angleVal = document.getElementById('val-angle');
+      const powerVal = document.getElementById('val-power');
+
+      angleSlider.oninput = () => { angleVal.innerText = `${angleSlider.value}°`; };
+      powerSlider.oninput = () => { powerVal.innerText = `${powerSlider.value}%`; };
+
+      document.getElementById('btn-throw-con').onclick = () => {
+        if (nemConState.isFlying) return;
+        sound.playBlip(580);
+        nemConState.attempts++;
+        document.getElementById('nem-con-attempts').innerText = nemConState.attempts;
+
+        const deg = parseFloat(angleSlider.value);
+        const pwr = parseFloat(powerSlider.value) * 0.22;
+        const rad = (deg * Math.PI) / 180;
+
+        nemConState.ballX = 75;
+        nemConState.ballY = 260;
+        nemConState.vx = Math.cos(rad) * pwr;
+        nemConState.vy = -Math.sin(rad) * pwr;
+        nemConState.isFlying = true;
+      };
+
+      if (nemConAnimId) cancelAnimationFrame(nemConAnimId);
+
+      function loop() {
+        // Physics update
+        if (nemConState.isFlying) {
+          nemConState.ballX += nemConState.vx;
+          nemConState.ballY += nemConState.vy;
+          nemConState.vy += 0.35; // Trọng lực
+
+          // Kiểm tra trúng vòng còn (Tâm vòng tại x: 520, y: 100, bán kính: 24)
+          const dx = nemConState.ballX - 520;
+          const dy = nemConState.ballY - 100;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 22 && !nemConState.paperBroken) {
+            nemConState.paperBroken = true;
+            nemConState.score += 100;
+            document.getElementById('nem-con-score').innerText = nemConState.score;
+            sound.playEquip();
+          }
+
+          // Rơi chạm đất hoặc bay khỏi màn hình
+          if (nemConState.ballY > 320 || nemConState.ballX > 640) {
+            nemConState.isFlying = false;
+            nemConState.ballX = 75;
+            nemConState.ballY = 260;
+            nemConState.paperBroken = false;
+          }
+        }
+
+        // Draw Canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Bầu trời & Mây ngũ sắc
+        ctx.fillStyle = '#bae6fd';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Mặt đất lễ hội
+        ctx.fillStyle = '#15803d';
+        ctx.fillRect(0, 310, canvas.width, 50);
+
+        // Cây cột còn (Tre cao)
+        ctx.fillStyle = '#052e16';
+        ctx.fillRect(518, 50, 6, 260);
+
+        // Vòng còn tròn bọc giấy đỏ
+        ctx.beginPath();
+        ctx.arc(520, 100, 24, 0, Math.PI * 2);
+        ctx.strokeStyle = '#b91c1c';
+        ctx.lineWidth = 6;
+        ctx.stroke();
+
+        // Tâm giấy còn
+        if (!nemConState.paperBroken) {
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.7)';
+          ctx.fill();
+        }
+
+        // Nhân vật ném bên trái
+        ctx.fillStyle = '#b91c1c';
+        ctx.fillRect(65, 250, 18, 60);
+        ctx.fillStyle = '#fed0ab';
+        ctx.fillRect(68, 236, 12, 14);
+
+        // Quả còn & tua rua vải ngũ sắc
+        ctx.beginPath();
+        ctx.arc(nemConState.ballX, nemConState.ballY, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fill();
+        ctx.strokeStyle = '#b91c1c';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Dải tua rua quả còn
+        ctx.strokeStyle = '#ef4444';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(nemConState.ballX, nemConState.ballY);
+        ctx.lineTo(nemConState.ballX - (nemConState.vx * 2), nemConState.ballY - (nemConState.vy * 2));
+        ctx.stroke();
+
+        nemConAnimId = requestAnimationFrame(loop);
+      }
+
+      loop();
+    }
+
+    /* ==========================================================================
+       11. HTML5 CANVAS MINI-GAME 2: GÁNH LỤA QUA CẦU
+       ========================================================================== */
+    let ganhLuaAnimId = null;
+    let ganhLuaState = {
+      playerX: 50,
+      balance: 0, // -50 đến +50
+      distance: 0,
+      wind: 0,
+      stepCount: 0
+    };
+
+    function initGanhLuaGame() {
+      const canvas = document.getElementById('ganh-lua-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      document.getElementById('btn-tilt-left').onclick = () => {
+        ganhLuaState.balance -= 6;
+        sound.playBlip(320);
+      };
+
+      document.getElementById('btn-tilt-right').onclick = () => {
+        ganhLuaState.balance += 6;
+        sound.playBlip(320);
+      };
+
+      document.getElementById('btn-start-ganh').onclick = () => {
+        ganhLuaState.playerX += 12;
+        ganhLuaState.distance += 2;
+        document.getElementById('ganh-lua-dist').innerText = `${ganhLuaState.distance}m`;
+        sound.playBlip(440);
+
+        // Gió đổi hướng ngẫu nhiên
+        ganhLuaState.wind = (Math.random() - 0.5) * 4;
+
+        if (ganhLuaState.playerX > 560) {
+          ganhLuaState.playerX = 50;
+          sound.playEquip();
+          alert('Chúc mừng bạn đã xuất sắc gánh lụa qua cầu khỉ an toàn!');
+        }
+      };
+
+      if (ganhLuaAnimId) cancelAnimationFrame(ganhLuaAnimId);
+
+      function loop() {
+        // Vật lý lắc lư đòn gánh
+        ganhLuaState.balance += ganhLuaState.wind * 0.15;
+
+        // Khống chế chỉ số
+        const balanceDisplay = Math.round(50 + ganhLuaState.balance);
+        document.getElementById('ganh-lua-balance').innerText = `${Math.max(0, Math.min(100, balanceDisplay))}%`;
+
+        if (Math.abs(ganhLuaState.balance) > 48) {
+          ganhLuaState.playerX = 50;
+          ganhLuaState.balance = 0;
+          ganhLuaState.distance = 0;
+          document.getElementById('ganh-lua-dist').innerText = '0m';
+          alert('Đòn gánh mất thăng bằng! Hãy nghiêng đòn gánh để giữ cân bằng nhé.');
+        }
+
+        // Render Canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Dòng sông xanh
+        ctx.fillStyle = '#0284c7';
+        ctx.fillRect(0, 260, canvas.width, 100);
+
+        // Cây cầu tre khỉ cong nhẹ
+        ctx.strokeStyle = '#78350f';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(0, 265);
+        ctx.quadraticCurveTo(320, 240, 640, 265);
+        ctx.stroke();
+
+        // Nhân vật gánh lụa
+        const px = ganhLuaState.playerX;
+        const py = 205;
+
+        ctx.fillStyle = '#b91c1c';
+        ctx.fillRect(px - 6, py, 12, 38);
+        ctx.fillStyle = '#fed0ab';
+        ctx.fillRect(px - 5, py - 14, 10, 14);
+
+        // Đòn gánh (Nghiêng theo balance)
+        const angle = (ganhLuaState.balance * Math.PI) / 180;
+        ctx.save();
+        ctx.translate(px, py + 4);
+        ctx.rotate(angle);
+
+        // Thanh tre đòn gánh
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(-36, 0);
+        ctx.lineTo(36, 0);
+        ctx.stroke();
+
+        // Hai thúng lụa hai đầu
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(-42, 6, 12, 10);
+        ctx.fillRect(30, 6, 12, 10);
+
+        // Cuộn lụa ngũ sắc trong thúng
+        ctx.fillStyle = '#f43f5e';
+        ctx.fillRect(-40, 3, 8, 5);
+        ctx.fillStyle = '#06b6d4';
+        ctx.fillRect(32, 3, 8, 5);
+
+        ctx.restore();
+
+        ganhLuaAnimId = requestAnimationFrame(loop);
+      }
+
+      loop();
+    }
+
+    // Khởi chạy khi tài liệu nạp xong
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
