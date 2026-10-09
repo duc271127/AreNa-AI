@@ -3,32 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Việt Phục Pixel Art - Bách Phục Cổ Truyền (Immersive Retro 8-Bit)</title>
+  <title>Việt Phục Pixel Art - Bách Phục Cổ Truyền (Minimalist & Immersive)</title>
   
-  <!-- Font Pixel hỗ trợ Tiếng Việt & Font Nội dung Be Vietnam Pro siêu nét -->
+  <!-- Font Pixel hỗ trợ Tiếng Việt & Font Be Vietnam Pro siêu nét -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Pixelify+Sans:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
   
   <style>
     :root {
+      /* ================= LIGHT MODE PALETTE (Tươi sáng & Ấm áp) ================= */
+      --bg-main: #FED2B7;       /* Cam đào nhạt - rgb(254, 210, 183) */
+      --bg-container: #FFFFE3;  /* Vàng kem nhạt - rgb(255, 255, 227) */
+      --bg-card: #FFFFE3;       /* Vàng kem nhạt */
+      --accent-soft: #FED2B7;   /* Cam đào nhạt */
+      --btn-primary: #FFA9A9;   /* Hồng pastel - rgb(255, 169, 169) */
+      --text-main: #5A2D2D;     /* Nâu sẫm */
+      --text-muted: #8B3A3A;    /* Đỏ gạch trầm */
+      --border-theme: #FED2B7;  /* Viền cam đào nhạt */
+      --border-strong: #FFBFA0;
+      
+      --sb-track: transparent;
+      --sb-thumb: #FED2B7;
+      --sb-thumb-hover: #FFA9A9;
+
       --gold-royal: #f59e0b;
       --gold-bright: #fef08a;
       --red-royal: #b91c1c;
-      --dark-glass: rgba(12, 8, 20, 0.82);
+      --dark-glass: rgba(12, 8, 20, 0.85);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; image-rendering: pixelated; }
+    [data-theme="dark"], body.theme-dark {
+      /* ================= DARK MODE PALETTE ================= */
+      --bg-main: #050B31;       /* Xanh đen đậm / Midnight Blue - rgb(5, 11, 49) */
+      --bg-container: #0E2045;  /* Xanh Navy đêm - rgb(14, 32, 69) */
+      --accent-soft: #1F3C73;   /* Xanh biển sâu - rgb(31, 60, 115) */
+      --btn-primary: #FFF3CB;   /* Vàng bơ hoàng hôn nhạt - rgb(255, 243, 203) */
+      --text-main: #FFFFFF;     /* Trắng tinh khôi */
+      --text-muted: #CBD5E1;    /* Trắng xám khói */
+      --border-theme: #1F3C73;  /* Viền xanh biển sâu */
+
+      --sb-track: transparent;
+      --sb-thumb: #1F3C73;
+      --sb-thumb-hover: #FFF3CB;
+    }
+
+    /* ================= 1. TÙY CHỈNH THANH CUỘN MỀM MẠI (CUSTOM SMOOTH SCROLLBAR) ================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;
+      scrollbar-width: thin;
+      scrollbar-color: var(--sb-thumb) var(--sb-track);
+    }
+
+    *::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: var(--sb-track);
+      border-radius: 9999px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: var(--sb-thumb);
+      border-radius: 9999px;
+      border: 1px solid transparent;
+      background-clip: content-box;
+      transition: background-color 0.2s ease;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background-color: var(--sb-thumb-hover);
+    }
+
+    *::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
 
     body {
-      background-color: #0c0814;
-      color: #f8fafc;
+      background-color: var(--bg-main);
+      color: var(--text-main);
       font-family: 'Pixelify Sans', cursive, monospace, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       user-select: none;
       overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .font-content {
@@ -45,12 +112,12 @@
       font-weight: 700;
       cursor: pointer;
       border: 1px solid rgba(245, 158, 11, 0.6);
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.65);
       color: #fed7aa;
-      transition: all 0.1s ease;
+      transition: all 0.15s ease;
     }
     .pixel-btn:hover {
-      background: rgba(180, 83, 9, 0.5);
+      background: rgba(180, 83, 9, 0.55);
       color: #fef08a;
       border-color: #fef08a;
     }
@@ -69,6 +136,22 @@
       border: 2px solid rgba(245, 158, 11, 0.4);
     }
 
+    /* Transition ẩn hiện mượt cho thanh Zoom */
+    .controls-fade {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .controls-hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+    }
+
+    /* Accordion transitions */
+    .accordion-content {
+      transition: max-height 0.25s ease, opacity 0.2s ease;
+      overflow: hidden;
+    }
+
     @keyframes pulse-gold {
       0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.5); border-color: #f59e0b; }
       50% { box-shadow: 0 0 28px rgba(254, 240, 138, 0.9); border-color: #fff; }
@@ -81,12 +164,6 @@
     }
     .animate-red-blink { animation: red-blink 1s steps(2) infinite; }
 
-    @keyframes lantern-flicker {
-      0%, 100% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-4px) rotate(1deg); }
-    }
-    .animate-lantern { animation: lantern-flicker 2s ease-in-out infinite; }
-
     .scanlines {
       background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.15));
       background-size: 100% 4px;
@@ -97,11 +174,11 @@
 <body>
   <div id="scanlines" class="scanlines" style="position: fixed; inset: 0; z-index: 40; display: none;"></div>
 
-  <!-- ================= HEADER: ABSOLUTE CENTER LOGO & GLASSMORPHISM ================= -->
+  <!-- ================= HEADER: ABSOLUTE CENTER LOGO ================= -->
   <header style="position: relative; width: 100%; z-index: 40; padding: 10px 16px; background: rgba(0,0,0,0.45); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(245, 158, 11, 0.35);">
     <div style="max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; position: relative;">
       
-      <!-- CỘT TRÁI: MÔ HÌNH NAM/NỮ & ĐỔI BỐI CẢNH -->
+      <!-- CỘT TRÁI: MÔ HÌNH NAM/NỮ -->
       <div style="display: flex; align-items: center; gap: 8px; z-index: 10;">
         <div style="display: flex; background: rgba(0,0,0,0.6); border: 1px solid rgba(245, 158, 11, 0.5);">
           <button id="btn-gender-female" class="pixel-btn" style="padding: 4px 10px; font-size: 11px; background: #831843; color: white;">
@@ -111,31 +188,27 @@
             👨 NAM
           </button>
         </div>
-
-        <div style="display: flex; background: rgba(0,0,0,0.6); border: 1px solid rgba(245, 158, 11, 0.5);">
-          <button class="btn-scene pixel-btn" data-scene="cung-dinh" style="padding: 4px 8px; font-size: 11px; background: #b45309; color: #fef08a;">
-            🏛️ Cung Đình
-          </button>
-          <button class="btn-scene pixel-btn" data-scene="dam-sen" style="padding: 4px 8px; font-size: 11px;">
-            🪷 Đầm Sen
-          </button>
-          <button class="btn-scene pixel-btn" data-scene="hoi-an" style="padding: 4px 8px; font-size: 11px;">
-            🏮 Phố Cổ
-          </button>
-        </div>
       </div>
 
-      <!-- CĂN GIỮA TUYỆT ĐỐI (ABSOLUTE CENTER): VIỆT PHỤC PIXEL ART -->
+      <!-- CĂN GIỮA TUYỆT ĐỐI (ABSOLUTE CENTER) -->
       <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">
         <h1 class="glow-gold" style="font-size: 18px; font-weight: 700; color: #fef08a; letter-spacing: 2px; text-transform: uppercase;">
           VIỆT PHỤC PIXEL ART
         </h1>
       </div>
 
-      <!-- CỘT PHẢI: MINI-GAME & AUDIO -->
+      <!-- CỘT PHẢI: TOGGLE THEME / TOGGLE ZOOM / LỄ HỘI LÀNG / AUDIO -->
       <div style="display: flex; align-items: center; gap: 6px; z-index: 10; margin-left: auto;">
+        <!-- NÚT CHUYỂN CHẾ ĐỘ SÁNG / TỐI -->
+        <button id="btn-toggle-theme" class="pixel-btn" style="padding: 4px 8px; font-size: 11px; background: #FFA9A9; color: #5A2D2D; border-color: #FFBFA0;" title="Chuyển chế độ Sáng / Tối">
+          ☀️ SÁNG
+        </button>
+        <!-- NÚT ẨN/HIỆN CÔNG CỤ ZOOM (YÊU CẦU 1) -->
+        <button id="btn-toggle-controls" class="pixel-btn" style="padding: 4px 8px; font-size: 11px; background: #b45309; color: white;" title="Ẩn/Hiện thanh công cụ zoom và tư thế">
+          👁️ TOOL
+        </button>
         <button id="btn-open-festival" class="pixel-btn" style="padding: 4px 10px; font-size: 11px; background: #b91c1c; color: white; border-color: #fef08a;">
-          🏮 LỄ HỘI LÀNG
+          🏮 LỄ HỘI
         </button>
         <button id="btn-bgm" class="pixel-btn" style="padding: 4px 8px; font-size: 11px;">
           🔇 BGM
@@ -151,29 +224,34 @@
   <!-- ================= IMMERSIVE HERO MAIN STAGE (85-90VH) ================= -->
   <main style="position: relative; flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;">
     
-    <!-- LỚP 1: NỀN BỐI CẢNH TOÀN CẢNH (SCENIC BACKGROUND) -->
+    <!-- LỚP 1: NỀN BỐI CẢNH TOÀN CẢNH (HỖ TRỢ ẢNH URL HOẶC FALLBACK SVG) -->
     <div id="scene-bg-container" style="position: absolute; inset: 0; pointer-events: none; z-index: 0;"></div>
 
-    <!-- LỚP 2: TRUNG TÂM (MODEL + TỦ ĐỒ TƯƠNG TÁC GÓC PHẢI) -->
+    <!-- LỚP 2: TRUNG TÂM (MODEL + VẬT THỂ TỦ ĐỒ THEO BỐI CẢNH) -->
     <div style="position: relative; flex: 1; max-width: 1280px; width: 100%; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; z-index: 20;">
       
-      <!-- Thông tin bối cảnh góc trái -->
-      <div style="position: absolute; top: 12px; left: 16px; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); border: 1px solid rgba(245,158,11,0.4); padding: 6px 12px; pointer-events: none;">
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <span id="scene-info-icon" style="font-size: 16px;">🏛️</span>
-          <span id="scene-info-name" style="font-size: 12px; font-weight: 700; color: #fef08a; text-transform: uppercase;">SẢNH CUNG ĐÌNH</span>
+      <!-- GÓC TRÁI TRÊN: CUSTOM PIXEL DROPDOWN CHỌN BỐI CẢNH (YÊU CẦU 1) -->
+      <div id="scene-dropdown-wrapper" style="position: absolute; top: 12px; left: 16px; z-index: 30;">
+        <button id="btn-scene-dropdown-toggle" class="pixel-btn" style="background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); border: 2px solid #f59e0b; padding: 6px 12px; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.7);">
+          <span id="scene-info-icon" style="font-size: 16px;">☁️</span>
+          <div style="display: flex; flex-direction: column; text-align: left;">
+            <span style="font-size: 9px; color: #fed7aa; font-family: monospace;">BỐI CẢNH</span>
+            <span id="scene-info-name" style="font-size: 12px; font-weight: 700; color: #fef08a; text-transform: uppercase;">CHỐN BỒNG LAI</span>
+          </div>
+          <span id="scene-dropdown-arrow" style="font-size: 11px; color: #fef08a; font-family: monospace; margin-left: 4px;">▼</span>
+        </button>
+
+        <div id="scene-dropdown-list" style="display: none; position: absolute; top: 100%; left: 0; margin-top: 6px; width: 280px; max-height: 280px; overflow-y: auto; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); border: 2px solid #f59e0b; box-shadow: 0 16px 36px rgba(0,0,0,0.9); padding: 6px; z-index: 50; flex-direction: column; gap: 4px;">
+          <!-- 6 Scenes rendered via JS -->
         </div>
-        <p id="scene-info-time" class="font-content" style="font-size: 10px; color: #fed7aa; margin-top: 2px;">
-          Đại Triều Buổi Sáng • Sơn son thếp vàng
-        </p>
       </div>
 
       <!-- MODEL TRUNG TÂM -->
       <div style="margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
         <div id="model-character-svg" style="position: relative;"></div>
 
-        <!-- Điều khiển tư thế & zoom mini -->
-        <div style="margin-top: 8px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); padding: 4px 10px; border: 1px solid rgba(245,158,11,0.4); font-size: 10px;">
+        <!-- THANH CÔNG CỤ TƯ THẾ & ZOOM (ẨN/HIỆN MƯỢT MÀ BẰNG NÚT CON MẮT) -->
+        <div id="floating-controls-bar" class="controls-fade" style="margin-top: 8px; display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); padding: 4px 10px; border: 1px solid rgba(245,158,11,0.4); font-size: 10px;">
           <span style="color: #fed7aa; font-family: monospace;">TƯ THẾ:</span>
           <button id="pose-idle" class="pixel-btn" style="padding: 2px 6px; background: #b91c1c; color: white;">Đứng</button>
           <button id="pose-salute" class="pixel-btn" style="padding: 2px 6px;">Hành lễ</button>
@@ -185,46 +263,82 @@
         </div>
       </div>
 
-      <!-- VẬT THỂ TỦ ĐỒ TƯƠNG TÁC GÓC PHẢI -->
-      <div style="position: absolute; top: 20px; right: 24px; z-index: 30; display: flex; flex-direction: column; align-items: flex-end;">
+      <!-- VẬT THỂ TỦ ĐỒ TƯƠNG TÁC (MÂY HỒNG TIÊN / TRỐNG ĐỎ / CUỐN THƯ HOÀNG GIA) -->
+      <div style="position: absolute; top: 16px; right: 24px; z-index: 30; display: flex; flex-direction: column; align-items: flex-end;">
         <button id="btn-toggle-wardrobe" style="background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; position: relative;">
           <div id="wardrobe-hint" style="position: absolute; top: -24px; white-space: nowrap; font-size: 10px; font-weight: 700; background: #fef3c7; color: #78350f; border: 1px solid #d97706; padding: 2px 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.4);">
-            ✨ CHẠM ĐỂ MỞ TỦ
+            ✨ CHẠM ĐỂ MỞ
           </div>
-          <div id="wardrobe-object-svg" style="width: 80px; height: 110px;"></div>
-          <div id="wardrobe-object-name" style="font-size: 10px; color: #fef08a; background: rgba(0,0,0,0.75); border: 1px solid #f59e0b; padding: 2px 6px; font-family: monospace; margin-top: 4px;">
-            TỦ GỖ LIM
+          <div id="wardrobe-object-svg" style="width: 86px; height: 110px;"></div>
+          <div id="wardrobe-object-name" style="font-size: 10px; color: #fef08a; background: rgba(0,0,0,0.8); border: 1px solid #f59e0b; padding: 2px 6px; font-family: monospace; margin-top: 4px;">
+            MÂY TIÊN BỒNG LAI
           </div>
         </button>
 
-        <!-- FLOATING OVERLAY KHI MỞ TỦ -->
-        <div id="wardrobe-overlay" class="pixel-glass" style="display: none; position: absolute; right: 0; top: 120px; width: 320px; max-height: 68vh; overflow-y: auto; padding: 12px; z-index: 40; box-shadow: 0 12px 32px rgba(0,0,0,0.85);">
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(245,158,11,0.3); padding-bottom: 6px; margin-bottom: 8px;">
-            <span style="font-size: 11px; font-weight: 700; color: #fef08a;">DANH SÁCH Y PHỤC HOÀNG TRIỀU</span>
+        <!-- FLOATING OVERLAY: ACCORDION CHỌN Y PHỤC & PHỤ KIỆN (YÊU CẦU 1 & 2) -->
+        <div id="wardrobe-overlay" class="pixel-glass" style="display: none; position: absolute; right: 0; top: 120px; width: 330px; max-height: 72vh; overflow-y: auto; padding: 12px; z-index: 40; box-shadow: 0 16px 40px rgba(0,0,0,0.9);">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(245,158,11,0.4); padding-bottom: 6px; margin-bottom: 8px;">
+            <span style="font-size: 11px; font-weight: 700; color: #fef08a;">KHO TRANG PHỤC & PHỤ KIỆN</span>
             <button id="btn-close-wardrobe-overlay" style="background: #b91c1c; color: white; border: 1px solid #fef08a; padding: 1px 6px; font-size: 11px; cursor: pointer;">✕</button>
           </div>
 
-          <!-- Grid Quần Áo -->
-          <div id="wardrobe-costumes-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 10px;"></div>
-
-          <!-- Grid Phụ Kiện -->
-          <div style="border-top: 1px solid rgba(245,158,11,0.3); padding-top: 8px;">
-            <div style="display: flex; justify-content: space-between; font-size: 10px; color: #fed7aa; margin-bottom: 6px;">
-              <span>PHỤ KIỆN (TỐI ĐA 2):</span>
-              <span id="overlay-acc-count" style="color: #fef08a; font-weight: 700;">0/2 ĐÃ ĐEO</span>
+          <!-- ACCORDION PANEL 1: CHỌN Y PHỤC -->
+          <div style="border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.4); margin-bottom: 8px;">
+            <button id="acc-toggle-costume" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: rgba(180,83,9,0.35); border: none; color: #fef08a; font-family: 'Pixelify Sans'; font-size: 11px; font-weight: 700; cursor: pointer;">
+              <span>👘 1. CHỌN Y PHỤC</span>
+              <span id="acc-arrow-costume">▲</span>
+            </button>
+            <div id="acc-content-costume" class="accordion-content" style="padding: 8px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
+              <!-- Costumes render here -->
             </div>
-            <div id="wardrobe-accessories-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; max-height: 180px; overflow-y: auto;"></div>
           </div>
+
+          <!-- ACCORDION PANEL 2: PHỤ KIỆN THEO 3 NHÓM ĐỘC QUYỀN (RADIO-BUTTON) -->
+          <div style="border: 1px solid rgba(245,158,11,0.3); background: rgba(0,0,0,0.4);">
+            <button id="acc-toggle-accessory" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; background: rgba(180,83,9,0.35); border: none; color: #fef08a; font-family: 'Pixelify Sans'; font-size: 11px; font-weight: 700; cursor: pointer;">
+              <span>💎 2. PHỤ KIỆN THEO NHÓM</span>
+              <span id="acc-arrow-accessory">▲</span>
+            </button>
+            <div id="acc-content-accessory" class="accordion-content" style="padding: 8px; display: flex; flex-direction: column; gap: 8px;">
+              
+              <!-- NHÓM 1: NÓN / MŨ / KHĂN ĐỘI ĐẦU -->
+              <div>
+                <div style="font-size: 10px; color: #fef08a; font-family: monospace; font-weight: 700; margin-bottom: 4px;">
+                  👑 NHÓM 1: NÓN / MŨ / KHĂN ĐỘI:
+                </div>
+                <div id="grid-acc-head" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px;"></div>
+              </div>
+
+              <!-- NHÓM 2: TRANG SỨC / CẦM TAY -->
+              <div>
+                <div style="font-size: 10px; color: #fef08a; font-family: monospace; font-weight: 700; margin-bottom: 4px;">
+                  🪭 NHÓM 2: TRANG SỨC / CẦM TAY:
+                </div>
+                <div id="grid-acc-jewelry" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px;"></div>
+              </div>
+
+              <!-- NHÓM 3: GIÀY / HÀI / GUỐC -->
+              <div>
+                <div style="font-size: 10px; color: #fef08a; font-family: monospace; font-weight: 700; margin-bottom: 4px;">
+                  👠 NHÓM 3: GIÀY / HÀI / GUỐC:
+                </div>
+                <div id="grid-acc-feet" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px;"></div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
 
     </div>
 
-    <!-- LỚP 3: HỘP THOẠI RPG THÔNG SỐ & ĐIỂM SỐ DƯỚI ĐÁY MÀN HÌNH -->
+    <!-- LỚP 3: HỘP THOẠI RPG THÔNG SỐ & NHẬN XÉT BỐI CẢNH (DƯỚI ĐÁY MÀN HÌNH) -->
     <div style="position: relative; width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 16px 12px; z-index: 30;">
       <div id="rpg-dialogue-box" class="pixel-glass" style="padding: 12px 16px; border: 2px solid #b45309; display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch; transition: all 0.3s ease;">
         
-        <!-- Cột trái: Tên trang phục & màu -->
+        <!-- Cột trái: Tên trang phục & màu sắc -->
         <div style="min-width: 200px; flex: 1; border-right: 1px solid rgba(245,158,11,0.25); padding-right: 12px; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
             <div style="display: flex; justify-content: space-between; font-size: 10px; color: #fed7aa; font-family: monospace;">
@@ -238,12 +352,12 @@
           </div>
 
           <div style="margin-top: 8px;">
-            <div style="font-size: 9px; color: #fed7aa; margin-bottom: 4px; font-family: monospace;">BIẾN THỂ MÀU SẮC:</div>
+            <div style="font-size: 9px; color: #fed7aa; margin-bottom: 4px; font-family: monospace;">MÀU Y PHỤC:</div>
             <div id="dialogue-color-variants" style="display: flex; gap: 4px; flex-wrap: wrap;"></div>
           </div>
         </div>
 
-        <!-- Cột giữa: Lời thoại Typewriter & Điển tích (Font Be Vietnam Pro) -->
+        <!-- Cột giữa: Lời thoại Typewriter nhận xét bối cảnh (Be Vietnam Pro) -->
         <div style="flex: 2; min-width: 280px; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
             <div style="font-size: 10px; color: #fde047; font-family: monospace; font-weight: 700; margin-bottom: 4px;">
@@ -254,7 +368,7 @@
           <div id="dialogue-tags" style="display: flex; gap: 4px; margin-top: 6px;"></div>
         </div>
 
-        <!-- Cột phải: Điểm số & Đánh giá cảnh quan -->
+        <!-- Cột phải: Điểm số & Đánh giá -->
         <div style="min-width: 180px; flex: 1; border-left: 1px solid rgba(245,158,11,0.25); padding-left: 12px; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
             <div style="font-size: 10px; color: #fed7aa; font-family: monospace; font-weight: 700;">THẨM ĐỊNH PHỐI ĐỒ:</div>
@@ -294,9 +408,16 @@
     </div>
   </div>
 
-  <!-- ================= SCRIPTS ================= -->
+  <!-- ================= JAVASCRIPT ================= -->
   <script>
-    // Audio engine
+    /* =========================================================================
+       KHAI BÁO CÁC BIẾN CHỨA URL ẢNH BACKGROUND (NGƯỜI DÙNG DÁN LINK VÀO ĐÂY)
+       ========================================================================= */
+    const bg_image_1 = ""; // Cảnh 1: Chốn Bồng Lai (Mây Hồng Cam)
+    const bg_image_2 = ""; // Cảnh 2: Sơn Thần Tế Đàn (Rừng sâu huyền bí)
+    const bg_image_3 = ""; // Cảnh 3: Cửu Long Cuốn Thư (Uy nghiêm rồng phượng)
+
+    // Audio Engine
     class SoundEngine {
       constructor() {
         this.ctx = null;
@@ -376,13 +497,17 @@
     }
     const sound = new SoundEngine();
 
-    // Data
+    // Data Bối Cảnh (Cả 6 Cảnh)
     const SCENES = [
-      { id: 'cung-dinh', name: 'Sảnh Cung Đình', icon: '🏛️', time: 'Đại Triều Buổi Sáng', objName: 'TỦ GỖ LIM KHẢM TRAI' },
-      { id: 'dam-sen', name: 'Đầm Sen Chạng Vạng', icon: '🪷', time: 'Hoàng Hôn Dân Gian', objName: 'ĐÀI SEN KHỔNG LỒ' },
-      { id: 'hoi-an', name: 'Phố Cổ Hội An', icon: '🏮', time: 'Đêm Hội Hoa Đăng', objName: 'RƯƠNG LỤA PHỐ HỘI' }
+      { id: 'bong-lai', name: 'Chốn Bồng Lai', icon: '☁️', time: 'Mây hồng cam • Tiên khí phiêu bồng', objName: 'MÂY TIÊN BỒNG LAI', imgUrl: bg_image_1 },
+      { id: 'son-than', name: 'Sơn Thần Tế Đàn', icon: '🥁', time: 'Đại ngàn huyền bí • Trống thiêng', objName: 'TRỐNG THIÊNG SƠN THẦN', imgUrl: bg_image_2 },
+      { id: 'cuu-long', name: 'Cửu Long Cuốn Thư', icon: '📜', time: 'Rồng phượng uy nghiêm • Thánh chỉ', objName: 'CỬU LONG THÁNH CHỈ', imgUrl: bg_image_3 },
+      { id: 'cung-dinh', name: 'Sảnh Cung Đình', icon: '🏛️', time: 'Sơn son thếp vàng • Uy nghiêm đại triều', objName: 'TỦ GỖ LIM KHẢM TRAI' },
+      { id: 'dam-sen', name: 'Đầm Sen Chạng Vạng', icon: '🪷', time: 'Nắng chiều buông • Gió đồng ngát hương', objName: 'ĐÀI SEN BÁCH DIỆP' },
+      { id: 'hoi-an', name: 'Phố Cổ Hội An', icon: '🏮', time: 'Sông Hoài lấp lánh • Đèn lồng hoa đăng', objName: 'RƯƠNG CỔ & ĐÈN LỒNG' }
     ];
 
+    // Data Trang Phục
     const COSTUMES = [
       { id: 'ao-tac', name: 'Áo Tấc Nữ', gender: 'female', era: 'Triều Nguyễn (TK 19)', rarity: 'Lễ Nghi', tags: ['Trang trọng', 'Lễ nghi'], baseScore: 50, desc: 'Lễ phục trang nghiêm cổ đứng, tay thụng rộng quấn mấn vành dây tôn nghiêm.', primary: '#b91c1c', secondary: '#7f1d1d' },
       { id: 'ao-nhat-binh', name: 'Áo Nhật Bình', gender: 'female', era: 'Triều Nguyễn (Hậu Phi)', rarity: 'Vương Giả', tags: ['Vương giả', 'Hậu phi'], baseScore: 60, desc: 'Khoác áo hoàng gia viền cổ hoa văn chữ nhật ngũ sắc, đính nơ ngọc hoa văn rực rỡ.', primary: '#f59e0b', secondary: '#92400e' },
@@ -393,48 +518,105 @@
       { id: 'ao-tac-nam', name: 'Áo Tấc Nam', gender: 'male', era: 'Triều Nguyễn', rarity: 'Lễ Nghi', tags: ['Trang trọng', 'Lễ nghi'], baseScore: 50, desc: 'Lễ phục nam giới tay thụng rộng, trang trọng khi tế lễ, luôn đi cùng khăn xếp.', primary: '#1e293b', secondary: '#0f172a' }
     ];
 
+    // Data Phụ Kiện Phân Loại 3 Nhóm
     const ACCESSORIES = [
-      { id: 'man', name: 'Mấn Vàng Dây', gender: 'female', tags: ['Lễ nghi'], bonus: 25, icon: '👑', match: ['ao-tac', 'ao-nhat-binh'] },
-      { id: 'non-ba-tam', name: 'Nón Ba Tầm', gender: 'female', tags: ['Dân gian'], bonus: 20, icon: '🌾', match: ['ao-tu-than'] },
-      { id: 'tram-cai-da', name: 'Trâm Cài Đá', gender: 'female', tags: ['Hậu phi'], bonus: 25, icon: '✨', match: ['ao-nhat-binh', 'ao-tac'] },
-      { id: 'khan-xep', name: 'Khăn Xếp Nam', gender: 'male', tags: ['Lễ nghi'], bonus: 20, icon: '🎩', match: ['ao-tac-nam', 'ao-ma-doan'] },
-      { id: 'the-bai-nga', name: 'Thẻ Bài Ngà', gender: 'male', tags: ['Quyền quý'], bonus: 15, icon: '🏷️', match: ['ao-ma-doan', 'ao-trang-vat'] },
-      { id: 'guoc-moc', name: 'Guốc Mộc', gender: 'unisex', tags: ['Dân gian'], bonus: 15, icon: '🪵', match: ['ao-tu-than', 'ao-trang-vat'] }
+      // Nhóm 1: Head
+      { id: 'man', name: 'Mấn Vàng Dây', category: 'head', gender: 'female', tags: ['Lễ nghi'], bonus: 25, icon: '👑', match: ['ao-tac', 'ao-nhat-binh'] },
+      { id: 'non-ba-tam', name: 'Nón Ba Tầm', category: 'head', gender: 'female', tags: ['Dân gian'], bonus: 20, icon: '🌾', match: ['ao-tu-than'] },
+      { id: 'khan-xep', name: 'Khăn Xếp Nam', category: 'head', gender: 'male', tags: ['Lễ nghi'], bonus: 20, icon: '🎩', match: ['ao-tac-nam', 'ao-ma-doan'] },
+      // Nhóm 2: Jewelry
+      { id: 'tram-cai-da', name: 'Trâm Cài Đá', category: 'jewelry', gender: 'female', tags: ['Hậu phi'], bonus: 25, icon: '✨', match: ['ao-nhat-binh', 'ao-tac'] },
+      { id: 'kieng-bac', name: 'Kiềng Bạc', category: 'jewelry', gender: 'female', tags: ['Sang trọng'], bonus: 20, icon: '📿', match: ['ao-lap-linh', 'ao-tac'] },
+      { id: 'quat-lua-tron', name: 'Quạt Lụa', category: 'jewelry', gender: 'female', tags: ['Thơ mộng'], bonus: 20, icon: '🪭', match: ['ao-lap-linh'] },
+      { id: 'the-bai-nga', name: 'Thẻ Bài Ngà', category: 'jewelry', gender: 'male', tags: ['Quyền quý'], bonus: 15, icon: '🏷️', match: ['ao-ma-doan', 'ao-trang-vat'] },
+      // Nhóm 3: Feet
+      { id: 'hai-mui-vut', name: 'Hài Mũi Vút', category: 'feet', gender: 'female', tags: ['Lễ nghi'], bonus: 25, icon: '👠', match: ['ao-nhat-binh', 'ao-tac'] },
+      { id: 'guoc-moc', name: 'Guốc Mộc', category: 'feet', gender: 'unisex', tags: ['Dân gian'], bonus: 15, icon: '🪵', match: ['ao-tu-than', 'ao-trang-vat'] }
     ];
 
     let currentGender = 'female';
-    let currentSceneId = 'cung-dinh';
+    let currentSceneId = 'bong-lai';
     let currentCostume = COSTUMES[0];
     let equippedAccs = [];
     let isWardrobeOpen = false;
+    let showControls = true;
     let typeTimer = null;
 
+    let isCostumeAccordionOpen = true;
+    let isAccessoryAccordionOpen = true;
+    let currentTheme = 'light';
+
     function init() {
+      // Thiết lập mặc định chế độ sáng tươi mới
+      document.body.setAttribute('data-theme', 'light');
       setupEvents();
       renderAll();
     }
 
     function setupEvents() {
+      // Toggle Theme Sáng / Tối
+      document.getElementById('btn-toggle-theme').onclick = () => {
+        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+        sound.playBlip(520);
+        document.body.setAttribute('data-theme', currentTheme);
+        const btn = document.getElementById('btn-toggle-theme');
+        if (currentTheme === 'light') {
+          btn.innerText = '☀️ SÁNG';
+          btn.style.background = '#FFA9A9';
+          btn.style.color = '#5A2D2D';
+          btn.style.borderColor = '#FFBFA0';
+        } else {
+          btn.innerText = '🌙 TỐI';
+          btn.style.background = '#1F3C73';
+          btn.style.color = '#FFF3CB';
+          btn.style.borderColor = '#FFF3CB';
+        }
+      };
+
       document.getElementById('btn-gender-female').onclick = () => setGender('female');
       document.getElementById('btn-gender-male').onclick = () => setGender('male');
 
-      document.querySelectorAll('.btn-scene').forEach(btn => {
-        btn.onclick = () => {
-          currentSceneId = btn.dataset.scene;
-          sound.playBlip(540);
-          document.querySelectorAll('.btn-scene').forEach(b => {
-            b.style.background = b.dataset.scene === currentSceneId ? '#b45309' : 'transparent';
-            b.style.color = b.dataset.scene === currentSceneId ? '#fef08a' : '#fed7aa';
-          });
-          renderAll();
-        };
+      // Custom Pixel Dropdown chọn Bối Cảnh (Yêu cầu 1)
+      const ddToggle = document.getElementById('btn-scene-dropdown-toggle');
+      const ddList = document.getElementById('scene-dropdown-list');
+      const ddArrow = document.getElementById('scene-dropdown-arrow');
+
+      ddToggle.onclick = (e) => {
+        e.stopPropagation();
+        const isOpen = ddList.style.display === 'flex';
+        ddList.style.display = isOpen ? 'none' : 'flex';
+        ddArrow.innerText = isOpen ? '▼' : '▲';
+        sound.playBlip(isOpen ? 380 : 520);
+        if (!isOpen) renderSceneDropdownItems();
+      };
+
+      document.addEventListener('click', (e) => {
+        if (!document.getElementById('scene-dropdown-wrapper').contains(e.target)) {
+          ddList.style.display = 'none';
+          ddArrow.innerText = '▼';
+        }
       });
 
+      // Nút Ẩn/Hiện Công Cụ Zoom (Yêu cầu 1)
+      document.getElementById('btn-toggle-controls').onclick = () => {
+        showControls = !showControls;
+        sound.playBlip(420);
+        const bar = document.getElementById('floating-controls-bar');
+        if (showControls) {
+          bar.classList.remove('controls-hidden');
+          document.getElementById('btn-toggle-controls').innerText = '👁️ TOOL';
+        } else {
+          bar.classList.add('controls-hidden');
+          document.getElementById('btn-toggle-controls').innerText = '👁️ HIỆN';
+        }
+      };
+
+      // Mở/Đóng Tủ đồ
       document.getElementById('btn-toggle-wardrobe').onclick = () => {
         isWardrobeOpen = !isWardrobeOpen;
         sound.playBlip(isWardrobeOpen ? 580 : 380);
         document.getElementById('wardrobe-overlay').style.display = isWardrobeOpen ? 'block' : 'none';
-        document.getElementById('wardrobe-hint').innerText = isWardrobeOpen ? '✕ ĐÓNG LẠI' : '✨ CHẠM ĐỂ MỞ';
+        document.getElementById('wardrobe-hint').innerText = isWardrobeOpen ? '✕ THU GỌN' : '✨ CHẠM ĐỂ MỞ';
         renderWardrobeObject();
       };
 
@@ -445,6 +627,22 @@
         renderWardrobeObject();
       };
 
+      // Accordion toggles
+      document.getElementById('acc-toggle-costume').onclick = () => {
+        isCostumeAccordionOpen = !isCostumeAccordionOpen;
+        sound.playBlip(400);
+        document.getElementById('acc-content-costume').style.display = isCostumeAccordionOpen ? 'grid' : 'none';
+        document.getElementById('acc-arrow-costume').innerText = isCostumeAccordionOpen ? '▲' : '▼';
+      };
+
+      document.getElementById('acc-toggle-accessory').onclick = () => {
+        isAccessoryAccordionOpen = !isAccessoryAccordionOpen;
+        sound.playBlip(400);
+        document.getElementById('acc-content-accessory').style.display = isAccessoryAccordionOpen ? 'flex' : 'none';
+        document.getElementById('acc-arrow-accessory').innerText = isAccessoryAccordionOpen ? '▲' : '▼';
+      };
+
+      // Audio toggles
       document.getElementById('btn-bgm').onclick = () => {
         const on = sound.toggleBgm();
         document.getElementById('btn-bgm').innerText = on ? '🎵 BGM' : '🔇 BGM';
@@ -455,6 +653,7 @@
         document.getElementById('btn-sfx').innerText = sound.enabled ? '🔊' : '🔇';
       };
 
+      // Lễ hội
       document.getElementById('btn-open-festival').onclick = () => {
         sound.playBlip(560);
         document.getElementById('festival-modal').style.display = 'flex';
@@ -478,7 +677,26 @@
       renderAll();
     }
 
-    function calculateScore() {
+    // Logic Chọn Độc Quyền Theo Nhóm (Yêu cầu 2: Radio Button per Category)
+    function toggleAcc(id) {
+      sound.playEquip();
+      const target = ACCESSORIES.find(a => a.id === id);
+      if (!target) return;
+
+      const isEquipped = equippedAccs.some(a => a.id === id);
+      if (isEquipped) {
+        // Gỡ bỏ món này
+        equippedAccs = equippedAccs.filter(a => a.id !== id);
+      } else {
+        // Gỡ bỏ bất kỳ món nào cùng category trước khi đeo món mới
+        equippedAccs = equippedAccs.filter(a => a.category !== target.category);
+        equippedAccs.push(target);
+      }
+      renderAll();
+    }
+
+    // Tính điểm dựa trên bối cảnh (Yêu cầu 4)
+    function calculateAdvancedScore() {
       let score = currentCostume.baseScore;
       let warning = '';
       let commentary = '';
@@ -490,41 +708,40 @@
 
       const isRoyal = currentCostume.tags.includes('Triều phục') || currentCostume.tags.includes('Vương giả');
       const isFolk = currentCostume.tags.includes('Dân gian');
-      const hasNon = equippedAccs.some(a => a.id === 'non-ba-tam');
-      const hasGuoc = equippedAccs.some(a => a.id === 'guoc-moc');
+      const isEthereal = currentCostume.tags.includes('Cổ phong') || currentCostume.tags.includes('Lễ nghi');
 
-      if (currentSceneId === 'cung-dinh') {
-        if (isRoyal) {
+      if (currentSceneId === 'bong-lai') {
+        if (isEthereal) {
           score += 20;
-          commentary = 'Y phục uy nghiêm lộng lẫy nơi chánh điện đại triều sơn son thếp vàng.';
-        } else if (isFolk || hasNon || hasGuoc) {
-          score -= 30;
-          warning = 'Cảnh báo phạm húy: Trang phục dân gian hoặc nón quai thao/guốc mộc không thể bước vào cung đình!';
+          commentary = `Bộ ${currentCostume.name} tung bay giữa chốn bồng lai mây hồng thật đẹp, toát lên phong thái thoát tục phiêu bồng.`;
+        } else {
+          score += 15;
+          commentary = `Sắc áo ${currentCostume.name} hòa cùng ráng mây hồng tạo nên cảnh sắc tráng lệ.`;
+        }
+      } else if (currentSceneId === 'son-than') {
+        if (isFolk) {
+          score += 20;
+          commentary = `Bộ ${currentCostume.name} khỏe khoắn hòa quyện trọn vẹn cùng âm vang trống thiêng sơn thần.`;
+        } else if (isRoyal) {
+          score -= 10;
+          warning = 'Y phục vương giả quá xa hoa, có phần lạc lõng giữa rừng sâu huyền bí.';
+          commentary = warning;
         } else {
           score += 10;
-          commentary = 'Y phục đoan trang, lịch thiệp nơi chốn cung đình.';
-        }
-      } else if (currentSceneId === 'dam-sen') {
-        if (isFolk || hasNon || hasGuoc) {
-          score += 20;
-          commentary = 'Chiếc áo hòa quyện tuyệt vời cùng ráng chiều và đầm sen ngát hương.';
-        } else if (isRoyal) {
-          score -= 15;
-          warning = 'Y phục triều đình quá xa hoa và cồng kềnh khi đứng trước cảnh đầm sen mộc mạc.';
-        } else {
-          score += 15;
-          commentary = 'Tà áo thanh thoát bên hồ sen chạng vạng.';
+          commentary = 'Y phục ngay ngắn hướng về linh khí non nước.';
         }
       } else {
-        if (isFolk || currentCostume.tags.includes('Cổ phong')) {
+        // Cửu Long Cuốn Thư
+        if (isRoyal) {
           score += 20;
-          commentary = 'Tà áo duyên dáng hòa vào ánh đèn lồng lung linh bên dòng sông Hoài.';
-        } else if (isRoyal) {
-          score -= 15;
-          warning = 'Triều phục có phần quá trang nghiêm cho đêm dạo phố hoa đăng.';
+          commentary = `Y phục vương giả ${currentCostume.name} uy nghiêm tuyệt đỉnh trước thánh chỉ Cửu Long cuốn thư dát vàng!`;
+        } else if (isFolk) {
+          score -= 20;
+          warning = 'Y phục dân gian không tương xứng với uy nghi rồng phượng và thánh chỉ hoàng gia!';
+          commentary = warning;
         } else {
           score += 15;
-          commentary = 'Nét đẹp cổ kính giữa lòng phố cổ Hội An.';
+          commentary = 'Y phục tề chỉnh hòa vào hào khí thịnh thế.';
         }
       }
 
@@ -540,55 +757,143 @@
       renderDialogue();
     }
 
+    function renderSceneDropdownItems() {
+      const list = document.getElementById('scene-dropdown-list');
+      list.innerHTML = `
+        <div style="padding: 4px 6px; font-size: 10px; color: #fed7aa; border-bottom: 1px solid rgba(245,158,11,0.3); display: flex; justify-content: space-between; font-weight: bold;">
+          <span>CHỌN BỐI CẢNH (6 CẢNH)</span>
+          <span style="color: #fef08a;">RETRO 8-BIT</span>
+        </div>
+        ${SCENES.map(s => {
+          const isAct = s.id === currentSceneId;
+          return `
+            <button onclick="selectScene('${s.id}')" class="pixel-btn" style="text-align: left; padding: 6px; display: flex; align-items: center; gap: 8px; background: ${isAct ? 'rgba(180,83,9,0.7)' : 'rgba(0,0,0,0.5)'}; border-color: ${isAct ? '#fef08a' : 'rgba(255,255,255,0.1)'};">
+              <span style="font-size: 18px;">${s.icon}</span>
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <strong style="font-size: 11px; color: ${isAct ? '#fef08a' : '#fff'}; truncate;">${s.name}</strong>
+                  ${isAct ? '<span style="color: #fef08a; font-weight: bold;">✓</span>' : ''}
+                </div>
+                <div class="font-content" style="font-size: 9px; color: #cbd5e1; margin-top: 2px; truncate;">${s.time}</div>
+              </div>
+            </button>
+          `;
+        }).join('')}
+      `;
+    }
+
+    function selectScene(id) {
+      currentSceneId = id;
+      sound.playBlip(540);
+      document.getElementById('scene-dropdown-list').style.display = 'none';
+      document.getElementById('scene-dropdown-arrow').innerText = '▼';
+      renderAll();
+    }
+
     function renderSceneBackground() {
       const sc = SCENES.find(s => s.id === currentSceneId);
       document.getElementById('scene-info-icon').innerText = sc.icon;
       document.getElementById('scene-info-name').innerText = sc.name;
-      document.getElementById('scene-info-time').innerText = sc.time;
       document.getElementById('wardrobe-object-name').innerText = sc.objName;
 
       const cont = document.getElementById('scene-bg-container');
-      if (currentSceneId === 'cung-dinh') {
+      
+      // Nếu có ảnh URL do user dán vào
+      if (sc.imgUrl && sc.imgUrl.trim() !== '') {
+        cont.innerHTML = `<div style="width: 100%; height: 100%; background: url('${sc.imgUrl}') center/cover no-repeat;"></div>`;
+        return;
+      }
+
+      // Fallback SVG & Gradient khớp với 6 cảnh (tươi sáng, cung đình, sang trọng)
+      if (currentSceneId === 'bong-lai') {
         cont.innerHTML = `
-          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #1e3a5f, #0f172a);">
+          <div style="width: 100%; height: 100%; background: linear-gradient(180deg, #FED2B7 0%, #FFE9DD 45%, #FFFFE3 100%); position: relative;">
             <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="none">
-              <rect x="0" y="0" width="1000" height="40" fill="#78350f" />
-              <rect x="0" y="40" width="1000" height="15" fill="#f59e0b" />
-              <rect x="60" y="55" width="45" height="545" fill="#7f1d1d" />
-              <rect x="65" y="55" width="5" height="545" fill="#f59e0b" />
-              <rect x="895" y="55" width="45" height="545" fill="#7f1d1d" />
-              <rect x="930" y="55" width="5" height="545" fill="#f59e0b" />
-              <rect x="0" y="480" width="1000" height="120" fill="#1e1b18" />
+              <defs>
+                <radialGradient id="sf-moon-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FFFFE3" stop-opacity="0.98" />
+                  <stop offset="55%" stop-color="#FFFEE0" stop-opacity="0.85" />
+                  <stop offset="78%" stop-color="#FFEAD9" stop-opacity="0.45" />
+                  <stop offset="100%" stop-color="#FED2B7" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle cx="500" cy="240" r="230" fill="url(#sf-moon-glow)" />
+              <circle cx="500" cy="240" r="160" fill="#FFFFE3" opacity="0.65" />
+              <circle cx="500" cy="240" r="115" fill="#FFFFE3" opacity="0.95" />
+              <circle cx="500" cy="240" r="80" fill="#FFFEE0" opacity="0.9" />
+              <circle cx="500" cy="240" r="185" stroke="#FED2B7" stroke-width="2" stroke-dasharray="6 8" fill="none" opacity="0.4" />
+              <polygon points="0,390 180,310 400,390" fill="#FED2B7" opacity="0.5" />
+              <polygon points="210,390 460,290 710,390" fill="#FFC8B8" opacity="0.4" />
+              <polygon points="580,390 790,320 1000,390" fill="#FED2B7" opacity="0.5" />
+              <path d="M 0 350 Q 150 300 320 350 Q 480 310 650 355 Q 820 305 1000 350 L 1000 600 L 0 600 Z" fill="#FED2B7" opacity="0.75" />
+              <path d="M 0 405 Q 180 355 370 410 Q 560 360 740 415 Q 880 370 1000 410 L 1000 600 L 0 600 Z" fill="#FFE7DA" opacity="0.85" />
+              <path d="M 0 475 Q 150 430 330 480 Q 510 435 690 485 Q 850 440 1000 480 L 1000 600 L 0 600 Z" fill="#FFFFE3" opacity="0.95" />
+              <path d="M 40 460 Q 95 440 150 460" stroke="#FED2B7" stroke-width="2.5" fill="none" opacity="0.8" />
+              <path d="M 230 468 Q 295 445 360 468" stroke="#FED2B7" stroke-width="2.5" fill="none" opacity="0.8" />
+              <path d="M 660 472 Q 725 450 790 472" stroke="#FED2B7" stroke-width="2.5" fill="none" opacity="0.8" />
+            </svg>
+          </div>
+        `;
+      } else if (currentSceneId === 'son-than') {
+        cont.innerHTML = `
+          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #047857, #0d9488, #10b981);">
+            <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="none">
+              <polygon points="460,0 540,0 640,360 360,360" fill="#fef08a" opacity="0.25" />
+              <polygon points="0,600 0,260 120,380 80,600" fill="#047857" opacity="0.85" />
+              <polygon points="1000,600 1000,240 860,390 920,600" fill="#047857" opacity="0.85" />
+              <ellipse cx="500" cy="420" rx="220" ry="45" fill="#7f1d1d" stroke="#f59e0b" stroke-width="3" />
+              <ellipse cx="500" cy="420" rx="160" ry="30" fill="#fed7aa" stroke="#b45309" stroke-width="2" />
+              <path d="M 120 300 Q 280 160 500 320 Q 720 480 880 260" stroke="#f59e0b" stroke-width="5" fill="none" opacity="0.85" />
+              <path d="M 80 400 Q 320 220 500 420 Q 680 180 920 380" stroke="#ef4444" stroke-width="4" fill="none" opacity="0.8" />
+            </svg>
+          </div>
+        `;
+      } else if (currentSceneId === 'cuu-long') {
+        cont.innerHTML = `
+          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #059669, #0d9488, #14b8a6);">
+            <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="none">
+              <circle cx="500" cy="200" r="75" fill="#fef08a" opacity="0.8" />
+              <path d="M 220 180 Q 280 120 340 180 Q 400 240 320 320 Q 240 380 180 300 Q 140 220 220 180 Z" stroke="#f59e0b" stroke-width="4" fill="none" opacity="0.6" />
+              <path d="M 780 180 Q 720 120 660 180 Q 600 240 680 320 Q 760 380 820 300 Q 860 220 780 180 Z" stroke="#f59e0b" stroke-width="4" fill="none" opacity="0.6" />
+              <path d="M 0 380 Q 280 240 500 360 Q 720 480 1000 280" stroke="#fef08a" stroke-width="24" fill="none" opacity="0.85" />
+            </svg>
+          </div>
+        `;
+      } else if (currentSceneId === 'cung-dinh') {
+        cont.innerHTML = `
+          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #991b1b, #c2410c, #f59e0b);">
+            <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="none">
+              <circle cx="500" cy="160" r="90" fill="#fef08a" opacity="0.6" />
+              <path d="M 150 240 Q 500 160 850 240 L 880 270 L 120 270 Z" fill="#b45309" stroke="#f59e0b" stroke-width="2" />
+              <rect x="60" y="160" width="46" height="440" fill="#7f1d1d" stroke="#f59e0b" stroke-width="2.5" />
+              <rect x="894" y="160" width="46" height="440" fill="#7f1d1d" stroke="#f59e0b" stroke-width="2.5" />
+              <polygon points="340,600 420,460 580,460 660,600" fill="#991b1b" stroke="#f59e0b" stroke-width="1.5" />
             </svg>
           </div>
         `;
       } else if (currentSceneId === 'dam-sen') {
         cont.innerHTML = `
-          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #4c1d95, #c2410c, #042f2e);">
+          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #fb7185, #f472b6, #fde047);">
             <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="none">
-              <circle cx="500" cy="220" r="60" fill="#fde047" opacity="0.85" />
-              <polygon points="0,320 240,240 480,320" fill="#4c1d95" opacity="0.6" />
-              <polygon points="420,320 720,230 1000,320" fill="#3b0764" opacity="0.7" />
-              <rect x="0" y="320" width="1000" height="280" fill="#064e3b" />
-              <ellipse cx="200" cy="440" rx="60" ry="15" fill="#047857" />
-              <circle cx="200" cy="425" r="12" fill="#f43f5e" />
-              <ellipse cx="800" cy="450" rx="65" ry="16" fill="#047857" />
-              <circle cx="800" cy="435" r="14" fill="#fb7185" />
+              <circle cx="500" cy="240" r="85" fill="#f43f5e" opacity="0.85" />
+              <path d="M 0 440 Q 140 380 280 440" stroke="#78350f" stroke-width="8" fill="none" />
+              <ellipse cx="180" cy="510" rx="60" ry="18" fill="#065f46" />
+              <ellipse cx="680" cy="490" rx="75" ry="20" fill="#065f46" />
+              <circle cx="820" cy="480" r="18" fill="#f43f5e" />
             </svg>
           </div>
         `;
       } else {
+        // Phố Cổ Hội An
         cont.innerHTML = `
-          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #0b0c1e, #1e1b4b, #041c2c);">
+          <div style="width: 100%; height: 100%; background: linear-gradient(to bottom, #1e3a8a, #2563eb, #38bdf8);">
             <svg width="100%" height="100%" viewBox="0 0 1000 600" preserveAspectRatio="none">
-              <circle cx="750" cy="110" r="42" fill="#fef08a" />
-              <rect x="0" y="200" width="180" height="180" fill="#d97706" />
-              <polygon points="0,200 90,160 180,200" fill="#451a03" />
-              <rect x="820" y="180" width="180" height="200" fill="#d97706" />
-              <polygon points="820,180 910,140 1000,180" fill="#451a03" />
-              <rect x="0" y="380" width="1000" height="220" fill="#082f49" />
-              <polygon points="460,470 472,460 484,470 472,475" fill="#f59e0b" />
-              <circle cx="472" cy="462" r="4" fill="#fff" />
+              <polygon points="0,260 160,200 240,240 240,460 0,460" fill="#ca8a04" stroke="#78350f" stroke-width="2" />
+              <polygon points="1000,260 840,195 760,240 760,460 1000,460" fill="#ca8a04" stroke="#78350f" stroke-width="2" />
+              <ellipse cx="280" cy="235" rx="9" ry="12" fill="#eab308" stroke="#fef08a" />
+              <ellipse cx="420" cy="225" rx="10" ry="13" fill="#0284c7" stroke="#fef08a" />
+              <ellipse cx="580" cy="225" rx="10" ry="13" fill="#ea580c" stroke="#fef08a" />
+              <polygon points="510,520 528,502 546,520 528,528" fill="#f59e0b" stroke="#fef08a" />
             </svg>
           </div>
         `;
@@ -631,56 +936,131 @@
       `;
     }
 
+    // Render vật thể theo bối cảnh (Yêu cầu 3)
     function renderWardrobeObject() {
       const cont = document.getElementById('wardrobe-object-svg');
-      if (currentSceneId === 'cung-dinh') {
+      if (currentSceneId === 'bong-lai') {
+        // Viên ngọc tiên / Khối mây hồng
         cont.innerHTML = `
-          <svg viewBox="0 0 48 64" width="80" height="110">
-            <rect x="4" y="6" width="40" height="52" fill="#4a1e09" />
-            <rect x="6" y="8" width="36" height="48" fill="#5c260c" />
-            <rect x="2" y="4" width="44" height="4" fill="#f59e0b" />
-            ${isWardrobeOpen ? '<rect x="8" y="10" width="32" height="44" fill="#fef3c7" /><rect x="14" y="14" width="20" height="26" fill="#b91c1c" />' : '<line x1="24" y1="8" x2="24" y2="56" stroke="#2d1305" /><circle cx="15" cy="28" r="3" fill="#bae6fd" /><circle cx="33" cy="28" r="3" fill="#bae6fd" />'}
+          <svg viewBox="0 0 54 54" width="86" height="96">
+            <circle cx="27" cy="27" r="22" fill="rgba(244,63,94,0.4)" />
+            <circle cx="27" cy="27" r="14" fill="#fda4af" stroke="#fff" stroke-width="1.5" />
+            <circle cx="27" cy="25" r="9" fill="#f43f5e" />
+            <circle cx="24" cy="22" r="3" fill="#fff" />
+            <path d="M 12 36 Q 27 20 42 36" stroke="#fef08a" stroke-width="2" fill="none" />
+          </svg>
+        `;
+      } else if (currentSceneId === 'son-than') {
+        // Chiếc Trống Đỏ Khổng Lồ
+        cont.innerHTML = `
+          <svg viewBox="0 0 54 54" width="86" height="96">
+            <polygon points="12,48 18,36 36,36 42,48" fill="#451a03" />
+            <rect x="10" y="20" width="34" height="20" rx="3" fill="#991b1b" stroke="#f59e0b" stroke-width="1.5" />
+            <ellipse cx="27" cy="18" rx="17" ry="5" fill="#fed7aa" stroke="#78350f" stroke-width="1" />
+            <path d="M 6 30 Q 27 16 48 20" stroke="#f59e0b" stroke-width="2.5" fill="none" />
+            ${isWardrobeOpen ? '<ellipse cx="27" cy="18" rx="17" ry="5" fill="rgba(254,240,138,0.7)" />' : ''}
+          </svg>
+        `;
+      } else if (currentSceneId === 'cuu-long') {
+        // Cuốn Thư Hoàng Gia Dát Vàng
+        cont.innerHTML = `
+          <svg viewBox="0 0 54 54" width="86" height="96">
+            ${isWardrobeOpen ? `
+              <rect x="4" y="10" width="6" height="34" fill="#78350f" />
+              <rect x="44" y="10" width="6" height="34" fill="#78350f" />
+              <rect x="8" y="14" width="38" height="26" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" />
+              <circle cx="27" cy="27" r="4" fill="#f59e0b" />
+            ` : `
+              <rect x="10" y="22" width="34" height="12" rx="3" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" />
+              <circle cx="10" cy="28" r="5" fill="#78350f" />
+              <circle cx="44" cy="28" r="5" fill="#78350f" />
+              <rect x="24" y="20" width="6" height="16" fill="#b91c1c" />
+            `}
+          </svg>
+        `;
+      } else if (currentSceneId === 'cung-dinh') {
+        // Tủ Gỗ Lim Sơn Son Thếp Vàng Khảm Trai
+        cont.innerHTML = `
+          <svg viewBox="0 0 54 54" width="86" height="96">
+            <path d="M 6 12 Q 27 6 48 12 L 46 16 L 8 16 Z" fill="#991b1b" stroke="#f59e0b" stroke-width="1.2" />
+            <rect x="8" y="16" width="38" height="32" rx="1" fill="#451a03" stroke="#f59e0b" stroke-width="1.5" />
+            ${isWardrobeOpen ? `
+              <rect x="12" y="18" width="30" height="28" fill="#fef3c7" />
+              <line x1="14" y1="22" x2="40" y2="22" stroke="#b45309" stroke-width="1.5" />
+              <rect x="18" y="22" width="6" height="18" fill="#b91c1c" />
+              <rect x="26" y="22" width="6" height="20" fill="#0284c7" />
+            ` : `
+              <rect x="10" y="18" width="16" height="28" fill="#5c2007" />
+              <rect x="28" y="18" width="16" height="28" fill="#5c2007" />
+              <circle cx="27" cy="32" r="4" fill="#f59e0b" />
+            `}
           </svg>
         `;
       } else if (currentSceneId === 'dam-sen') {
+        // Đài Sen Ngọc Bích Khổng Lồ
         cont.innerHTML = `
-          <svg viewBox="0 0 48 48" width="80" height="90">
-            <ellipse cx="24" cy="40" rx="20" ry="6" fill="#047857" />
-            ${isWardrobeOpen ? '<path d="M 6 36 C 8 20, 18 24, 24 38" fill="#f43f5e" /><path d="M 42 36 C 40 20, 30 24, 24 38" fill="#f43f5e" /><circle cx="24" cy="26" r="7" fill="#fde047" />' : '<path d="M 24 12 C 14 24, 16 36, 24 38 C 32 36, 34 24, 24 12 Z" fill="#e11d48" /><path d="M 24 14 C 19 24, 20 34, 24 37 C 28 34, 29 24, 24 14 Z" fill="#fb7185" />'}
+          <svg viewBox="0 0 54 54" width="86" height="96">
+            <ellipse cx="27" cy="46" rx="22" ry="6" fill="#047857" />
+            ${isWardrobeOpen ? `
+              <ellipse cx="27" cy="28" rx="10" ry="7" fill="#fef08a" stroke="#eab308" stroke-width="1.5" />
+              <path d="M 6 36 C 8 20, 20 28, 27 34 C 34 28, 46 20, 48 36 Z" fill="#f43f5e" />
+              <path d="M 12 38 C 16 26, 23 30, 27 35 C 31 30, 38 26, 42 38 Z" fill="#fda4af" />
+            ` : `
+              <path d="M 27 12 C 16 22, 12 34, 16 42 C 20 46, 34 46, 38 42 C 42 34, 38 22, 27 12 Z" fill="#e11d48" stroke="#f43f5e" stroke-width="1.2" />
+              <circle cx="27" cy="20" r="3" fill="#fda4af" />
+            `}
           </svg>
         `;
       } else {
+        // Rương Cổ & Đèn Lồng Phố Cổ Hội An
         cont.innerHTML = `
-          <svg viewBox="0 0 48 48" width="80" height="90">
-            <ellipse cx="24" cy="11" rx="5" ry="6" fill="#b91c1c" />
-            <rect x="8" y="22" width="32" height="20" fill="#78350f" />
-            <rect x="6" y="20" width="36" height="4" fill="#b45309" />
-            ${isWardrobeOpen ? '<polygon points="6,20 12,8 36,8 42,20" fill="#92400e" /><rect x="10" y="22" width="28" height="12" fill="#fef3c7" />' : '<rect x="22" y="21" width="4" height="6" fill="#f59e0b" />'}
+          <svg viewBox="0 0 54 54" width="86" height="96">
+            <ellipse cx="27" cy="13" rx="7" ry="5.5" fill="#ea580c" stroke="#fef08a" stroke-width="1" />
+            <rect x="8" y="28" width="38" height="20" rx="2" fill="#78350f" stroke="#f59e0b" stroke-width="1.5" />
+            ${isWardrobeOpen ? `
+              <polygon points="6,20 48,20 46,28 8,28" fill="#92400e" stroke="#f59e0b" stroke-width="1.2" />
+              <rect x="10" y="28" width="34" height="10" fill="#fef3c7" />
+              <rect x="14" y="29" width="8" height="8" fill="#e11d48" />
+              <rect x="24" y="29" width="8" height="8" fill="#0284c7" />
+            ` : `
+              <path d="M 8 28 Q 27 22 46 28 L 46 30 L 8 30 Z" fill="#92400e" />
+              <rect x="24" y="28" width="6" height="7" rx="1" fill="#fef08a" stroke="#78350f" stroke-width="0.8" />
+            `}
           </svg>
         `;
       }
     }
 
+    // Render Accordion và Phụ kiện theo 3 nhóm
     function renderWardrobeOverlay() {
-      const list = COSTUMES.filter(c => c.gender === currentGender || c.gender === 'unisex');
-      document.getElementById('wardrobe-costumes-grid').innerHTML = list.map(c => `
+      // 1. Quần áo
+      const costumeList = COSTUMES.filter(c => c.gender === currentGender || c.gender === 'unisex');
+      document.getElementById('acc-content-costume').innerHTML = costumeList.map(c => `
         <button class="pixel-btn" onclick="selectCostume('${c.id}')" style="padding: 6px; display: flex; flex-direction: column; align-items: center; background: ${c.id === currentCostume.id ? '#b91c1c' : 'rgba(0,0,0,0.6)'};">
           <div style="width: 100%; height: 20px; background: ${c.primary};"></div>
-          <strong style="font-size: 11px; margin-top: 4px;">${c.name}</strong>
+          <strong style="font-size: 11px; margin-top: 4px; truncate;">${c.name}</strong>
         </button>
       `).join('');
 
+      // 2. Phụ kiện theo 3 nhóm
       const accList = ACCESSORIES.filter(a => a.gender === currentGender || a.gender === 'unisex');
-      document.getElementById('overlay-acc-count').innerText = `${equippedAccs.length}/2 ĐÃ ĐEO`;
-      document.getElementById('wardrobe-accessories-grid').innerHTML = accList.map(a => {
+      const headList = accList.filter(a => a.category === 'head');
+      const jewelryList = accList.filter(a => a.category === 'jewelry');
+      const feetList = accList.filter(a => a.category === 'feet');
+
+      const renderAccBtn = (a) => {
         const isEq = equippedAccs.some(x => x.id === a.id);
         return `
-          <button class="pixel-btn" onclick="toggleAcc('${a.id}')" style="padding: 4px 6px; font-size: 10px; background: ${isEq ? '#047857' : 'rgba(0,0,0,0.5)'};">
-            <span>${a.icon} ${a.name}</span>
-            <span>${isEq ? '✓' : `+${a.bonus}`}</span>
+          <button class="pixel-btn" onclick="toggleAcc('${a.id}')" style="padding: 4px 6px; font-size: 10px; background: ${isEq ? '#047857' : 'rgba(0,0,0,0.5)'}; border-color: ${isEq ? '#fef08a' : 'rgba(255,255,255,0.1)'};">
+            <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${a.icon} ${a.name.split('(')[0]}</span>
+            <span style="font-weight: bold; margin-left: auto;">${isEq ? '✓' : `+${a.bonus}`}</span>
           </button>
         `;
-      }).join('');
+      };
+
+      document.getElementById('grid-acc-head').innerHTML = headList.map(renderAccBtn).join('');
+      document.getElementById('grid-acc-jewelry').innerHTML = jewelryList.map(renderAccBtn).join('');
+      document.getElementById('grid-acc-feet').innerHTML = feetList.map(renderAccBtn).join('');
     }
 
     function selectCostume(id) {
@@ -689,20 +1069,8 @@
       renderAll();
     }
 
-    function toggleAcc(id) {
-      sound.playEquip();
-      const a = ACCESSORIES.find(x => x.id === id);
-      if (equippedAccs.some(x => x.id === id)) {
-        equippedAccs = equippedAccs.filter(x => x.id !== id);
-      } else {
-        if (equippedAccs.length >= 2) equippedAccs = [equippedAccs[1], a];
-        else equippedAccs.push(a);
-      }
-      renderAll();
-    }
-
     function renderDialogue() {
-      const ev = calculateScore();
+      const ev = calculateAdvancedScore();
       document.getElementById('dialogue-costume-name').innerText = currentCostume.name;
       document.getElementById('dialogue-era').innerText = currentCostume.era;
       document.getElementById('dialogue-rarity').innerText = currentCostume.rarity;
@@ -723,7 +1091,7 @@
           elem.innerText = narrative.slice(0, i);
           if (i % 10 === 0) sound.playTypewriter();
         }
-      }, 20);
+      }, 18);
     }
 
     function initNemCon() {

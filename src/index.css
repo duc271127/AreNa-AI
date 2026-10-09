@@ -1,5 +1,77 @@
 @import "tailwindcss";
 
+:root {
+  /* ================= LIGHT MODE PALETTE (Tươi sáng & Ấm áp) ================= */
+  --bg-main: #FED2B7;       /* Cam đào nhạt - rgb(254, 210, 183) */
+  --bg-container: #FFFFE3;  /* Vàng kem nhạt - rgb(255, 255, 227) */
+  --bg-card: #FFFFE3;       /* Vàng kem nhạt */
+  --accent-soft: #FED2B7;   /* Cam đào nhạt - rgb(254, 210, 183) */
+  --accent-highlight: #FFD6B0; /* Cam đào nhạt bổ trợ */
+  --btn-primary: #FFA9A9;   /* Hồng pastel - rgb(255, 169, 169) */
+  --text-main: #5A2D2D;     /* Nâu sẫm - Đảm bảo đọc rõ ràng trên nền kem sáng */
+  --text-muted: #8B3A3A;    /* Đỏ gạch trầm */
+  --border-theme: #FED2B7;  /* Viền cam đào nhạt */
+  --border-strong: #FFBFA0; /* Viền nhấn */
+  
+  /* Scrollbar Light Mode: Mềm mại & bo tròn */
+  --sb-track: transparent;
+  --sb-thumb: #FED2B7;
+  --sb-thumb-hover: #FFA9A9;
+}
+
+[data-theme="dark"], .theme-dark {
+  /* ================= DARK MODE PALETTE (Chế độ Tối) ================= */
+  --bg-main: #050B31;       /* Xanh đen đậm / Midnight Blue - rgb(5, 11, 49) */
+  --bg-container: #0E2045;  /* Xanh Navy đêm - rgb(14, 32, 69) */
+  --accent-soft: #1F3C73;   /* Xanh biển sâu - rgb(31, 60, 115) */
+  --btn-primary: #FFF3CB;   /* Vàng bơ hoàng hôn nhạt - rgb(255, 243, 203) */
+  --text-main: #FFFFFF;     /* Trắng tinh khôi */
+  --text-muted: #CBD5E1;    /* Trắng xám khói */
+  --border-theme: #1F3C73;  /* Viền xanh biển sâu */
+  --border-strong: #2a5298; /* Viền nhấn */
+
+  /* Scrollbar Dark Mode */
+  --sb-track: transparent;
+  --sb-thumb: #1F3C73;
+  --sb-thumb-hover: #FFF3CB;
+}
+
+/* ================= 1. TÙY CHỈNH THANH CUỘN MỀM MẠI (CUSTOM SMOOTH SCROLLBAR) ================= */
+/* Toàn bộ thanh cuộn trong ứng dụng: Cả trang và các khung cuộn nhỏ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb) var(--sb-track);
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--sb-track);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--sb-thumb);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--sb-thumb-hover);
+}
+
+/* Loại bỏ nút mũi tên ở 2 đầu thanh cuộn */
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 @layer base {
   body {
     font-family: 'Pixelify Sans', 'VT323', monospace;
@@ -36,6 +108,64 @@
 
 .box-glow-gold {
   box-shadow: 0 0 25px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(251, 191, 36, 0.2);
+}
+
+/* Theme Adaptive Glass Panels */
+.pixel-glass-theme {
+  background: var(--bg-container);
+  color: var(--text-main);
+  border: 2px solid var(--border-theme);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light / Dark Mode specific text & button accents */
+[data-theme="light"] .theme-header {
+  background: rgba(255, 255, 227, 0.92);
+  border-bottom: 2px solid #FED2B7;
+  color: #5A2D2D;
+  box-shadow: 0 4px 12px rgba(254, 210, 183, 0.35);
+}
+
+[data-theme="dark"] .theme-header {
+  background: rgba(14, 32, 69, 0.85);
+  border-bottom: 2px solid #1F3C73;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(5, 11, 49, 0.6);
+}
+
+[data-theme="light"] .theme-card {
+  background: rgba(255, 255, 227, 0.95);
+  border: 2px solid #FED2B7;
+  color: #5A2D2D;
+}
+
+[data-theme="dark"] .theme-card {
+  background: rgba(14, 32, 69, 0.85);
+  border: 2px solid #1F3C73;
+  color: #FFFFFF;
+}
+
+[data-theme="light"] .theme-btn-primary {
+  background-color: #FFA9A9;
+  color: #5A2D2D;
+  border-color: #FFBFA0;
+}
+[data-theme="light"] .theme-btn-primary:hover {
+  background-color: #ff9393;
+}
+
+[data-theme="dark"] .theme-btn-primary {
+  background-color: #FFF3CB;
+  color: #050B31;
+  border-color: #FFF3CB;
+}
+[data-theme="dark"] .theme-btn-primary:hover {
+  background-color: #fef08a;
 }
 
 .pixel-glass-dark {
@@ -164,9 +294,13 @@
 
 /* Backgrounds Nam vs Nữ */
 .bg-court-male {
-  background: 
-    radial-gradient(circle at 50% 30%, #1e3a5f 0%, #0f172a 75%),
-    repeating-linear-gradient(45deg, rgba(245, 158, 11, 0.03) 0px, rgba(245, 158, 11, 0.03) 8px, transparent 8px, transparent 16px);
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      #527ba0 0%,
+      #294766 55%,
+      #192f49 100%
+    );
 }
 
 .bg-court-female {

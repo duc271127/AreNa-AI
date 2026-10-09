@@ -66,9 +66,12 @@ export type AccessoryId =
   | 'quai-thao-kep'
   | 'tram-cai-da';
 
+export type AccessoryCategory = 'head' | 'jewelry' | 'feet';
+
 export interface Accessory {
   id: AccessoryId;
   name: string;
+  category: AccessoryCategory;
   gender: 'male' | 'female' | 'unisex';
   slot: 'head' | 'neck' | 'hand' | 'feet' | 'waist';
   tags: string[];
@@ -79,7 +82,7 @@ export interface Accessory {
   icon: string;
 }
 
-export type SceneId = 'cung-dinh' | 'dam-sen' | 'hoi-an';
+export type SceneId = 'bong-lai' | 'son-than' | 'cuu-long' | 'cung-dinh' | 'dam-sen' | 'hoi-an';
 
 export interface Scene {
   id: SceneId;
@@ -92,6 +95,7 @@ export interface Scene {
   wardrobeClosedIcon: string;
   wardrobeOpenIcon: string;
   description: string;
+  imageUrl?: string;
 }
 
 export interface ScoreEvaluation {
